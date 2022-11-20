@@ -2,6 +2,7 @@
 CHAR_POS: .half 0,0
 OLD_CHAR_POS:	.half 0,0			# x, y
 .text
+
 SETUP:
 	la a0, home_1f
 	li a1, 0
@@ -11,7 +12,6 @@ SETUP:
 	li a3, 1
 	call PRINT
 	
-#
 
 GAME_LOOP:
 
@@ -22,11 +22,11 @@ GAME_LOOP:
 	
 	
 	la t0, CHAR_POS
-	la a0, hero_2
+	la a0, hero_1
 	lh a1, 0(t0)
 	lh a2, 2(t0)
 	mv a3, s0
-	call PRINT
+	call PRINT_USER
 
 	li t0,0xFF200604
 	sw s0, 0(t0)
@@ -62,6 +62,8 @@ FIM:		ret				# retorna
 CHAR_ESQ:
 	la t0, 	CHAR_POS
 	lh t1, 0(t0)
+	li t2, 16
+	ble t1, t2, BORDA_ESQUERDA
 	addi t1, t1, -16
 	sh t1, 0(t0)
 	ret
@@ -69,6 +71,8 @@ CHAR_ESQ:
 CHAR_DIR:
 	la t0, 	CHAR_POS
 	lh t1, 0(t0)
+	li t2, 288                       # right bound
+	bge  t1, t2, BORDA_DIREITA
 	addi t1, t1, 16
 	sh t1, 0(t0)
 	ret
@@ -76,19 +80,46 @@ CHAR_DIR:
 																																											
 CHAR_CIMA:
 	la t0,CHAR_POS
-	lh t1,2(t0)			# carrega o y atual do personagem
-	addi t1,t1,-16			# decrementa 16 pixeis
+	li t2, 16                        # upper bound
+	lh t1,2(t0)		         # carrega o y atual do personagem
+	ble t1, t2, BORDA_CIMA
+	addi t1,t1, -16 			# decrementa 16 pixeis
 	sh t1,2(t0)			# salva
 	ret
 	
+
 					
+															
 CHAR_BAIXO:
 	la t0,CHAR_POS
-	lh t1,2(t0)			# carrega o y atual do personagem
-	addi t1,t1,16			# incrementa 16 pixeis
+	li t2, 192 			# lower bound
+	lh t1,2(t0)   			# carrega o y atual do personagem
+	bge  t1, t2, BORDA_BAIXO
+	addi t1,t1, 16			# incrementa 16 pixeis
 	sh t1,2(t0)			# salva
 	ret												
 
+
+
+BORDA_CIMA:	
+	li t1, 0
+	sh t1, 2(t0)
+	ret
+BORDA_BAIXO:
+	li t1, 208
+	sh t1, 2(t0)
+	ret
+
+BORDA_DIREITA:
+	li t1, 288
+	sh t1, 0(t0)
+	ret
+BORDA_ESQUERDA:
+	li t1, 0
+	sh t1, 0(t0)
+	ret
+	
+	
 #	a0 = ENDERECO DA IMAGEM
 #	a1 = x
 #	a2 = y
@@ -150,9 +181,60 @@ PRINT_LINHA:
 	
 	ret
 	
+
+
+
+
+
+
+PRINT_USER: 	
+#different fgunction to print the npcs and the user	
+	# loading adress of bitmap
+	li t0, 0xFF0
+	add t0, t0, a3
+	slli t0, t0, 20
 	
+	#load background color:
+	li s1, 223
+	
+	# calculando x e y
+	add t0, t0, a1
+	li t1, 320
+	mul t1, t1, a2
+	add t0, t0, t1
+	
+	addi t1, a0, 8
+
+	# zerando contadores
+	mv t2, zero
+	mv t3, zero
+	
+	lw t4, 0(a0)
+	lw t5, 4(a0)
+	
+	
+PRINT_LINHA_USER:
+	lb t6, 0(t1)
+	lbu s2, 0(t1)
+	beq s2, s1, PULA_BACKGROUND # pula background rosa
+	sb t6, 0(t0)
+PULA_BACKGROUND:	
+	addi t0,t0, 1
+	addi t1,t1, 1
+	addi t3, t3, 1
+	
+	blt t3, t4, PRINT_LINHA_USER
+	# pula de lih e volta para o inicio
+	addi t0, t0, 320
+	sub t0, t0, t4
+	
+	li t3, 0
+	addi t2, t2, 1
+	blt t2, t4, PRINT_LINHA_USER
+	
+	ret
+
 	
 .data
-.include "sprites/backgrounds/home_1f.data"
-.include "sprites/characters/hero_1.data"
-.include "sprites/characters/hero_2.data"
+.include "sprites/backgrounds/home_1f.s"
+.include "sprites/characters/hero_1.s"
