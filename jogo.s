@@ -1,7 +1,4 @@
 .data 
-CHAR_POS: .half 0,0
-OLD_CHAR_POS:	.half 0,0			# x, y
-
 
 
 .text
@@ -20,13 +17,17 @@ SETUP:
 GAME_LOOP:
 
 	call KEY2
+
 	xori s0, s0, 1
+	call PRINT_LAST_POS
 	
 
 	# load current frame of character set it to a0:	
-	call GET_CURRENT_FRAME
 
+	# print last square of characters based on current map (32x32)
 
+	# get the adress of image to be used (a0 = adress of image) 
+	call SPRITE_ADRESS
 	la t0, CHAR_POS
 	lh a1, 0(t0)
 	lh a2, 2(t0)
@@ -40,6 +41,7 @@ GAME_LOOP:
 
 
 
+# KEY POOLING:
 	
 
 KEY2:		
@@ -50,8 +52,8 @@ KEY2:
   		lw t2,4(t1)  			# le o valor da tecla tecla
 		
 
-
-		# get current sprite frame adress
+		# ANIMATION OF SPRITE (STORE CURRENT FRAME):
+	# get current sprite frame adress
 		la t3, CURR_FRAME
 		# get current frame
 		lb t4, 0(t3)
@@ -63,10 +65,10 @@ KEY2:
 		addi t4, t4, 1
 
 
-PULA_SOMA_FRAME:
-		sb t4, 0(t3)
+		PULA_SOMA_FRAME:
+			sb t4, 0(t3)
 
-
+	# END STORE CURRENT FRAME
 
 
 		li t0,'w'
@@ -106,44 +108,74 @@ PULA_SOMA_FRAME:
 		li t4, 3
 		sb t4, 0(t3)
 		beq t2,t0,CHAR_DIR		# se tecla pressionada for 'd', chama CHAR_CIMA
+
+
+
 	
 FIM:		ret				# retorna
 				
-
-
-RESET_FRAME:
-	li  t5, 1
-	mv t4, t5
-	J PULA_SOMA_FRAME
-				
+	
 CHAR_ESQ:
 	la t0, 	CHAR_POS
-	lh t1, 0(t0)
-	addi t1, t1, -16
-	sh t1, 0(t0)
+	lh t1, 0(t0)			# carrega o x atual do personagem
+	lh t3, 2(t0)
+
+	la t2,OLD_CHAR_POS
+	sh t1, 0(t2)	
+	sh t3, 2(t2)
+
+
+	addi t1, t1, -32
+	sh t1, 0(t0)    		# salva novo x em char_pos
 	ret
 	
 CHAR_DIR:
 	la t0, 	CHAR_POS
-	lh t1, 0(t0)
-	addi t1, t1, 16
-	sh t1, 0(t0)
+	lh t1, 0(t0)			# carrega o x atual do personagem
+	lh t3, 2(t0)
+
+	la t2, OLD_CHAR_POS
+	sh t1, 0(t2)	
+	sh t3, 2(t2)	
+
+
+	# salva a posicao atual do personagem em OLD_CHAR_POS
+	addi t1, t1, 32 		# incrementa 16
+	sh t1, 0(t0)  			# salva x em char_pos[0]
+
 	ret
 	
 																																											
 CHAR_CIMA:
 	la t0,CHAR_POS
-	lh t1,2(t0)			# carrega o y atual do personagem
-	addi t1,t1,-16			# decrementa 16 pixeis
-	sh t1,2(t0)			# salva
+	lh t1, 0(t0)			# carrega o x atual do personagem
+	lh t3, 2(t0)
+
+	la t2, OLD_CHAR_POS
+	sh t1, 0(t2)	
+	sh t3, 2(t2)	
+
+	lh t1, 2(t0)				# carrega y
+	addi t1,t1,-32				# decrementa 16 pixeis
+	sh t1,2(t0)		    		# salva y
 	ret
 	
 					
 CHAR_BAIXO:
+
 	la t0,CHAR_POS
-	lh t1,2(t0)			# carrega o y atual do personagem
-	addi t1,t1,16			# incrementa 16 pixeis
-	sh t1,2(t0)			# salva
+	lh t1, 0(t0)    			# carrega x atual
+	lh t3, 2(t0)				# carrega o y atual
+
+
+	la t2,OLD_CHAR_POS
+	sh t1, 0(t2)				
+	sh t3, 2(t2)				# salva a posicao atual do personagem em OLD_CHAR_POS
+
+
+	lh t1, 2(t0)				# carrega y
+	addi t1,t1,32				# incrementa 16 pixeis
+	sh t1,2(t0)			  		# salva y
 	ret												
 
 
@@ -151,50 +183,14 @@ CHAR_BAIXO:
 
 
 
-PRINT: 		
-	# loading adress of bitmap
-	li t0, 0xFF0
-	add t0, t0, a3
-	slli t0, t0, 20
-	
-	# calculando x e y
-	add t0, t0, a1
-	li t1, 320
-	mul t1, t1, a2
-	add t0, t0, t1
-	
-	addi t1, a0, 8
+#  SET CURRENT FRAME TO 1
 
-	# zerando contadores
-	mv t2, zero
-	mv t3, zero
-	
-	lw t4, 0(a0)
-	lw t5, 4(a0)
-	
-	
-PRINT_LINHA:
-	lw t6, 0(t1)
-	sw t6, 0(t0)
-	
-	addi t0,t0, 4
-	addi t1,t1, 4
-	addi t3, t3, 4
-	
-	blt t3, t4, PRINT_LINHA
-	# pula de linha e volta para o inicio
-	addi t0, t0, 320
-	sub t0, t0, t4
-	
-	li t3, 0
-	addi t2, t2, 1
-	blt t2, t4, PRINT_LINHA
-	
-	ret
-	
-	
+RESET_FRAME:
+	li  t5, 1
+	mv t4, t5
+	J PULA_SOMA_FRAME
+			
 	
 .data
-.include "sprites/backgrounds/home_1f.data"
 
 .include "animation.s"
