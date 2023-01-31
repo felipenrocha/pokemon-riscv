@@ -89,21 +89,6 @@ CHAR_BAIXO:
 	sh t1,2(t0)			# salva
 	ret												
 
-#	a0 = ENDERECO DA IMAGEM
-#	a1 = x
-#	a2 = y
-#	a3 = frame (ou ou 1)
-#
-##
-#	t0 = endereco do bmp display
-#	t1 = endereco da imagem
-#       t2 = contador de linha
-#	t3 = contador de coluna
-#	t4 = altura
-#	t5 = largura
-
-
-
 
 
 
