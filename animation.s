@@ -3,7 +3,7 @@
 # 0: up, 1: left, 2: down, 3 right
 CURR_DIRECTION: .byte  2
 CHAR_POS:	.half 128,128			# x, y
-OLD_CHAR_POS:	.half 0,0	# x, y
+OLD_CHAR_POS:	.half 64,64	# x, y
 RA_STASH: .word 0 # stash of rgster adresses
 
 # store which frame od character where using on animation rn (1 , 2, or 3)
@@ -67,8 +67,7 @@ PRINT_LAST_POS:
     lw ra, 0(t0)
     ret
 
-function:
-    ret
+
 SPRITE_ADRESS:
         # load current frame adress
         la t2, CURR_FRAME
@@ -111,54 +110,54 @@ UP:
     beq t6, t3, UP_3
 
 
-UP_1:
-    la a0, hero_up_1
-    ret
+    UP_1:
+        la a0, hero_up_1
+        ret
 
-UP_2:
-    la a0, hero_up_2
-    ret
+    UP_2:
+        la a0, hero_up_2
+        ret
 
-UP_3:
-    la a0, hero_up_3
-    ret
+    UP_3:
+        la a0, hero_up_3
+        ret
 
 
 LEFT:
-    beq t4, t3, LEFT_1
-    beq t5, t3, LEFT_2
-    beq t6, t3, LEFT_3
+        beq t4, t3, LEFT_1
+        beq t5, t3, LEFT_2
+        beq t6, t3, LEFT_3
 
-LEFT_1:
-    la a0, hero_left_1
-    ret
+    LEFT_1:
+        la a0, hero_left_1
+        ret
 
-LEFT_2:
-    la a0, hero_left_2
-    ret
+    LEFT_2:
+        la a0, hero_left_2
+        ret
 
-LEFT_3:
-    la a0, hero_left_3
-    ret
-
-
+    LEFT_3:
+        la a0, hero_left_3
+        ret
 
 
-DOWN:
+
+
+DOWN:  
     beq t4, t3, DOWN_1
     beq t5, t3, DOWN_2
     beq t6, t3, DOWN_3
 
 
-DOWN_1:
+    DOWN_1:
     la a0, hero_down_1
     ret
 
-DOWN_2:
+    DOWN_2:
     la a0, hero_down_2
     ret
 
-DOWN_3:
+    DOWN_3:
     la a0, hero_down_3
     ret
 
@@ -169,15 +168,15 @@ RIGHT:
     beq t6, t3, RIGHT_3
 
 
-RIGHT_1:
+    RIGHT_1:
     la a0, hero_right_1
     ret
 
-RIGHT_2:
+    RIGHT_2:
     la a0, hero_right_2
     ret
 
-RIGHT_3:
+    RIGHT_3:
     la a0, hero_right_3
     ret
 
@@ -210,7 +209,7 @@ PRINT:
 		
 		add t0,t0,a1			# adiciona x ao t0
 		
-		li t1,320			# t1 = 320
+		li t1,320			    # t1 = 320
 		mul t1,t1,a2			# t1 = 320 * y
 		add t0,t0,t1			# adiciona t1 ao t0
 		
@@ -249,48 +248,47 @@ PRINT_SQUARE:
 	slli t0, t0, 20
 	
     add t0,t0,a1			# adiciona x ao t0
-    
     li t4, 320
     mv t2, a2
 
     mul t2, t2, t4
-    add t0, t0, t2 # adiciona y ao t0
+    add t0, t0, t2          # adiciona y ao t0
 
 	# calculando x e y
 
     # calculate adress of x,y:
     #   x = a1, y = a2
     # t1 will have the adress of inicial byte from position a1, a2
-
-
-
     mv t1, zero
 	addi t1, a0, 8
     
     mv t2, a1 
     mv t3, a2
 
-    # x in a1 and y in a2
+    # x in t2 and y in t3
     li      t4, 320
-    mul     t2, t2, t4
-    add     t3, t3, t2
+    mul     t3, t3, t4
+    add     t2, t2, t3
 
-    add t1, t1, t3
+    add t1, t1, t2
+    
 	# zerando contadores
 	mv t2, zero
 	mv t3, zero
 	# square 32x32
     mv t4, a4
-    mv t5, a5
 	
 	
 PRINT_LINHA_SQUARE:
-	lb t6, 0(t1)
-	sb t6, 0(t0)
-	
-	addi t0,t0, 1
-	addi t1,t1, 1
-	addi t3, t3, 1
+
+
+
+	lw t6, 0(t1)
+	sw t6, 0(t0)
+
+	addi t0,t0, 4
+	addi t1,t1, 4
+	addi t3, t3, 4
 	
 	blt t3, t4, PRINT_LINHA_SQUARE
 	# pula de linha e volta para o inicio
@@ -298,15 +296,17 @@ PRINT_LINHA_SQUARE:
 	sub t0, t0, t4
 
     addi t1, t1, 320
-	addi t1, t1, -32
+    sub t1, t1, t4
+
 	
 	li t3, 0
 	addi t2, t2, 1
+
+
 	blt t2, t4, PRINT_LINHA_SQUARE
 	
 	ret
 	
-
 
 
 .data
