@@ -1,11 +1,13 @@
 .data 
 
+# s1 = RA_STASH TOP ADRESS
+
 .text
 
 		
 
 
-	jal ra, MENU
+	# jal ra, MENU
 	
 
 SETUP:
@@ -51,6 +53,10 @@ GAME_LOOP:
 	
 
 KEY2:		
+
+
+		
+
 		li t1,0xFF200000		# carrega o endereco de controle do KDMMIO
 		lw t0,0(t1)			# Le bit de Controle Teclado
 		andi t0,t0,0x0001		# mascara o bit menos significativo
@@ -59,7 +65,7 @@ KEY2:
 		
 
 		# ANIMATION OF SPRITE (STORE CURRENT FRAME):
-	# get current sprite frame adress
+		# get current sprite frame adress
 		la t3, CURR_FRAME
 		# get current frame
 		lb t4, 0(t3)
@@ -72,7 +78,7 @@ KEY2:
 
 
 		PULA_SOMA_FRAME:
-			sb t4, 0(t3)
+		sb t4, 0(t3)
 
 	# END STORE CURRENT FRAME
 
@@ -86,16 +92,14 @@ KEY2:
 		beq t2,t0,CHAR_CIMA		# se tecla pressionada for 'w', chama CHAR_CIMA
 
 		
-		
+
 		li t0,'a'
 		# store direction
 		la t3, CURR_DIRECTION
 		li t4, 1
 		sb t4, 0(t3)
 		beq t2,t0,CHAR_ESQ		# se tecla pressionada for 'a', chama CHAR_CIMA
-		
-		
-		
+
 		
 		li t0,'s'
 		# store direction
@@ -116,7 +120,9 @@ KEY2:
 
 
 	
-FIM:		ret				# retorna
+FIM:		
+
+		ret				# retorna
 				
 	
 CHAR_ESQ:
@@ -128,9 +134,12 @@ CHAR_ESQ:
 	sh t1, 0(t2)	
 	sh t3, 2(t2)
 
-
 	addi t1, t1, -32
+	bge t1, zero, PULA_COLISAO_ESQUERDA # if t1 < zerot1 then target
+	li t1, 0
+PULA_COLISAO_ESQUERDA:	
 	sh t1, 0(t0)    		# salva novo x em char_pos
+	
 	ret
 	
 CHAR_DIR:
@@ -145,7 +154,13 @@ CHAR_DIR:
 
 	# salva a posicao atual do personagem em OLD_CHAR_POS
 	addi t1, t1, 32 		# incrementa 16
-	sh t1, 0(t0)  			# salva x em char_pos[0]
+	li t4, 288
+
+	ble t1, t4, PULA_COLISAO_DIREITA 
+	mv t1, t4
+PULA_COLISAO_DIREITA:	
+	sh t1, 0(t0)    		# salva novo x em char_pos
+
 
 	ret
 	
@@ -161,7 +176,14 @@ CHAR_CIMA:
 
 	lh t1, 2(t0)				# carrega y
 	addi t1,t1,-32				# decrementa 16 pixeis
+
+	bge t1, zero, PULA_COLISAO_CIMA # if t1 < zerot1 then target
+	mv t1, zero
+PULA_COLISAO_CIMA:	
 	sh t1,2(t0)		    		# salva y
+
+
+
 	ret
 	
 					
@@ -179,7 +201,13 @@ CHAR_BAIXO:
 
 	lh t1, 2(t0)				# carrega y
 	addi t1,t1,32				# incrementa 16 pixeis
+
+	li t4, 208
+	ble t1, t4, PULA_COLISAO_BAIXO # if t1 < zerot1 then target
+	mv t1, t4
+PULA_COLISAO_BAIXO:	
 	sh t1,2(t0)			  		# salva y
+
 	ret												
 
 
@@ -193,7 +221,32 @@ RESET_FRAME:
 	li  t5, 1
 	mv t4, t5
 	J PULA_SOMA_FRAME
-			
+
+CHECK_COLISIONS:
+	# t0 == new x,y position adress 
+	# if 0(t0) => 320: return 320
+	# if 2(t0) => 240: return 228 (32 multiple)
+		
+		lh t1, 0(t0) # x
+		lh t2, 2(t0) # y pos
+		li t3, 320
+		bge t1, t3, X_COLISION # if X >= 320 then X Collision
+		li t3,  228
+		bge t2, t3, X_COLISION # if y >= 240 then y Collision
+		
+		FORA_COLISION:
+		ret
+
+X_COLISION:
+	li t3, 320
+	sh t3, 0(t0)
+	J FORA_COLISION
+Y_COLISION:
+	li t3, 228
+	sh t3, 2(t0)
+	J FORA_COLISION
+
+	
 	
 .data
 
