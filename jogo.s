@@ -1,9 +1,15 @@
 .data 
 
-
 .text
-SETUP:
+
+		
+
+
+	jal ra, MENU
 	
+
+SETUP:
+	mv s0, zero
 	la a0, home_1f
 	li a1, 0
 	li a2, 0
@@ -86,12 +92,10 @@ KEY2:
 		la t3, CURR_DIRECTION
 		li t4, 1
 		sb t4, 0(t3)
-
-
-		
-	
-
 		beq t2,t0,CHAR_ESQ		# se tecla pressionada for 'a', chama CHAR_CIMA
+		
+		
+		
 		
 		li t0,'s'
 		# store direction
@@ -194,3 +198,4 @@ RESET_FRAME:
 .data
 
 .include "animation.s"
+.include "menu.s"

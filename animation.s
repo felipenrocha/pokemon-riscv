@@ -202,7 +202,9 @@ RIGHT_3:
 #	t5 = altura				#
 #################################################
 
-PRINT:		li t0,0xFF0			# carrega 0xFF0 em t0
+PRINT:		
+
+        li t0,0xFF0			# carrega 0xFF0 em t0
 		add t0,t0,a3			# adiciona o frame ao FF0 (se o frame for 1 vira FF1, se for 0 fica FF0)
 		slli t0,t0,20			# shift de 20 bits pra esquerda (0xFF0 vira 0xFF000000, 0xFF1 vira 0xFF100000)
 		
