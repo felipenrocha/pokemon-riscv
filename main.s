@@ -1,18 +1,21 @@
 .data 
 
 # s1 = RA_STASH TOP ADRESS
+# .include "SYSTEM/MACROSv21.s"
+
 
 .text
 
 		
 
 
-	# jal ra, MENU
+jal ra, MENU
 	
 
 SETUP:
 	mv s0, zero
-	la a0, home_1f
+	call GET_MAP_ADRESS
+	# la a0, lab
 	li a1, 0
 	li a2, 0
 	li a3, 0
@@ -25,11 +28,31 @@ SETUP:
 GAME_LOOP:
 
 	call KEY2
-
+	
 	xori s0, s0, 1
-	call PRINT_LAST_POS
 	
 
+	call GET_MAP_ADRESS
+	# a0 = current map adress
+
+	call PRINT_LAST_POS
+
+	#a0 needs to be the data of current map so we can teleport it or check if its in right position:
+	call GET_DATA_FROM_MAP
+	call CHECK_TELEPORT
+	# check if teleport occurred to change the background
+	beq a0, zero, NO_TELEPORT 
+	# teleport case:
+		call GET_MAP_ADRESS #a0 = current map adress
+		li a1, 0
+		li a2, 0
+		li a3, 0
+		call PRINT
+		li a3, 1
+		call PRINT
+		call UPDATE_CHAR_POS
+
+NO_TELEPORT:
 	# load current frame of character set it to a0:	
 
 	# print last square of characters based on current map (32x32)
@@ -99,8 +122,6 @@ KEY2:
 		li t4, 1
 		sb t4, 0(t3)
 		beq t2,t0,CHAR_ESQ		# se tecla pressionada for 'a', chama CHAR_CIMA
-
-		
 		li t0,'s'
 		# store direction
 		la t3, CURR_DIRECTION
@@ -129,16 +150,14 @@ CHAR_ESQ:
 	la t0, 	CHAR_POS
 	lh t1, 0(t0)			# carrega o x atual do personagem
 	lh t3, 2(t0)
-
 	la t2,OLD_CHAR_POS
 	sh t1, 0(t2)	
 	sh t3, 2(t2)
-
 	addi t1, t1, -32
-	bge t1, zero, PULA_COLISAO_ESQUERDA # if t1 < zerot1 then target
-	li t1, 0
-PULA_COLISAO_ESQUERDA:	
+	ble t1, zero, PULA_COLISAO_ESQUERDA # if t1 < zerot1 then target
 	sh t1, 0(t0)    		# salva novo x em char_pos
+
+PULA_COLISAO_ESQUERDA:	
 	
 	ret
 	
@@ -154,13 +173,10 @@ CHAR_DIR:
 
 	# salva a posicao atual do personagem em OLD_CHAR_POS
 	addi t1, t1, 32 		# incrementa 16
-	li t4, 288
-
-	ble t1, t4, PULA_COLISAO_DIREITA 
-	mv t1, t4
-PULA_COLISAO_DIREITA:	
+	li t4, 320
+	bge t1, t4, PULA_COLISAO_DIREITA 
 	sh t1, 0(t0)    		# salva novo x em char_pos
-
+PULA_COLISAO_DIREITA:	
 
 	ret
 	
@@ -177,10 +193,9 @@ CHAR_CIMA:
 	lh t1, 2(t0)				# carrega y
 	addi t1,t1,-32				# decrementa 16 pixeis
 
-	bge t1, zero, PULA_COLISAO_CIMA # if t1 < zerot1 then target
-	mv t1, zero
-PULA_COLISAO_CIMA:	
+	ble t1, zero, PULA_COLISAO_CIMA # if t1 < zerot1 then target
 	sh t1,2(t0)		    		# salva y
+PULA_COLISAO_CIMA:	
 
 
 
@@ -202,11 +217,10 @@ CHAR_BAIXO:
 	lh t1, 2(t0)				# carrega y
 	addi t1,t1,32				# incrementa 16 pixeis
 
-	li t4, 208
-	ble t1, t4, PULA_COLISAO_BAIXO # if t1 < zerot1 then target
-	mv t1, t4
-PULA_COLISAO_BAIXO:	
+	li t4, 240
+	bge t1, t4, PULA_COLISAO_BAIXO # if t1 < zerot1 then target
 	sh t1,2(t0)			  		# salva y
+PULA_COLISAO_BAIXO:	
 
 	ret												
 
@@ -222,33 +236,11 @@ RESET_FRAME:
 	mv t4, t5
 	J PULA_SOMA_FRAME
 
-CHECK_COLISIONS:
-	# t0 == new x,y position adress 
-	# if 0(t0) => 320: return 320
-	# if 2(t0) => 240: return 228 (32 multiple)
-		
-		lh t1, 0(t0) # x
-		lh t2, 2(t0) # y pos
-		li t3, 320
-		bge t1, t3, X_COLISION # if X >= 320 then X Collision
-		li t3,  228
-		bge t2, t3, X_COLISION # if y >= 240 then y Collision
-		
-		FORA_COLISION:
-		ret
-
-X_COLISION:
-	li t3, 320
-	sh t3, 0(t0)
-	J FORA_COLISION
-Y_COLISION:
-	li t3, 228
-	sh t3, 2(t0)
-	J FORA_COLISION
-
 	
 	
 .data
 
 .include "animation.s"
 .include "menu.s"
+.include "background.s"
+# .include "SYSTEM/SYSTEMv21.s"

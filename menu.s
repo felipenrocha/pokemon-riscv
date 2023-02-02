@@ -111,12 +111,6 @@ FIM_key_menu:		ret				# retorna
 
 
 CONTINUE_MENU:
-	li a7, 1
-	li t0, 1
-	mv a0, t0
-	ecall
-	
-
 	mv ra, s0
 	ret
 

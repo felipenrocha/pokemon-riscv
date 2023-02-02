@@ -1,8 +1,8 @@
 .data
 # stores current direction for animation: 
 # 0: up, 1: left, 2: down, 3 right
-CURR_DIRECTION: .byte  2
-CHAR_POS:	.half 128,128			# x, y
+CURR_DIRECTION: .byte  1
+CHAR_POS:	.half 32,208			# x, y
 OLD_CHAR_POS:	.half 64,64	# x, y
 RA_STASH: .word 0 # stash of rgster adresses
 
@@ -51,8 +51,9 @@ PRINT_LAST_POS:
     li t4, 32
     li t5, 32
 
+    
 
-	la a0, home_1f
+	# la a0, lab
 	mv a1, t1
 	mv a2, t2
 	mv a3, s0
@@ -221,7 +222,8 @@ PRINT:
 		lw t4,0(a0)			# carrega a largura em t4
 		lw t5,4(a0)			# carrega a altura em t5
 		
-PRINT_LINHA:	lw t6,0(t1)			# carrega em t6 uma word (4 pixeis) da imagem
+PRINT_LINHA:	
+        lw t6,0(t1)			# carrega em t6 uma word (4 pixeis) da imagem
 		sw t6,0(t0)			# imprime no bitmap a word (4 pixeis) da imagem
 		
 		addi t0,t0,4			# incrementa endereco do bitmap
@@ -283,6 +285,8 @@ PRINT_LINHA_SQUARE:
 
 
 
+
+
 	lw t6, 0(t1)
 	sw t6, 0(t0)
 
@@ -309,6 +313,24 @@ PRINT_LINHA_SQUARE:
 	
 
 
+
+
+PRINT_BRACKGROUND:
+	la a0, home_1f
+	li a1, 0
+	li a2, 0
+	li a3, 0
+	call PRINT
+	li a3, 1
+	call PRINT
+    ret
+
+PRINT_CHAR:
+
+    la t0, CHAR_POS
+	lh a1, 0(t0)
+	lh a2, 2(t0)
+	mv a3, s0
 .data
 
 .include "sprites/characters/hero_left_1.data"
@@ -332,6 +354,7 @@ PRINT_LINHA_SQUARE:
 .include "sprites/characters/hero_down_2.data"
 .include "sprites/characters/hero_down_3.data"
 
-.include "sprites/backgrounds/home_1f.data"
+
+
 
 
