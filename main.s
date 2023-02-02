@@ -1,13 +1,17 @@
+.include "SYSTEM/MACROSv21.s"
+
 .data 
 
 # s1 = RA_STASH TOP ADRESS
-.include "SYSTEM/MACROSv21.s"
 
 
 .text
 
 		
-
+# GAME_LOOP:
+# 	la a0, msg1
+# 	call PRINTBOX
+# j GAME_LOOP
 
 jal ra, MENU
 	
@@ -47,6 +51,8 @@ GAME_LOOP:
 		li a3, 1
 		call PRINT
 		call UPDATE_CHAR_POS
+		jal TEXT_BOX
+
 
 NO_TELEPORT:
 	# load current frame of character set it to a0:	
@@ -73,11 +79,16 @@ NO_TELEPORT:
 
 
 
+TEXT_BOX:
+		loopbox:
+		la a0, msg1
+		call PRINTBOX
+		j loopbox
 
 
 	
 .data
-
+.include "textbox.s"
 .include "animation.s"
 .include "menu.s"
 .include "background.s"

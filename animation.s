@@ -331,8 +331,9 @@ PRINT_CHAR:
 	lh a1, 0(t0)
 	lh a2, 2(t0)
 	mv a3, s0
-.data
 
+
+.data
 .include "sprites/characters/hero_left_1.data"
 .include "sprites/characters/hero_left_2.data"
 .include "sprites/characters/hero_left_3.data"

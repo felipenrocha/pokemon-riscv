@@ -108,6 +108,15 @@ UPDATE_CHAR_POS:
 ret
 
 
+
+CLS:	
+	li a0,0x00
+	li a7,148
+	li a1,0
+	ecall
+	ret
+
+    
 .data
 
 

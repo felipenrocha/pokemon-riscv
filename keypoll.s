@@ -121,9 +121,6 @@ CHAR_CIMA:
 	ble t1, zero, PULA_COLISAO_CIMA # if t1 < zerot1 then target
 	sh t1,2(t0)		    		# salva y
 PULA_COLISAO_CIMA:	
-
-
-
 	ret
 	
 					
