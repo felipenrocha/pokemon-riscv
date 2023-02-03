@@ -13,10 +13,8 @@ STASH: .word 0
 
 INICIO_JOGO:
 
-
-#  ra stash
-    la      t0, STASH
-    sw      ra, 0(t0)                      # 4-byte Folded Spill
+    addi    sp, sp, -4
+    sw      ra, 0(sp)  
 
     # print bg
     la a0, oakbg
@@ -132,7 +130,7 @@ RESETA_MENSAGEM:
         ret
 
 
-END_INICIO:    
-    la     t0, STASH
-    lw ra, 0(t0)                      # 4-byte Folded Spill
+END_INICIO:
+    lw      ra, 0(sp)                      # 4-byte Folded Reload
+    addi    sp, sp, 4    
 	ret

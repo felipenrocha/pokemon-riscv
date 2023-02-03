@@ -80,15 +80,13 @@ UPDATE_CHAR_POS:
 
     # since were calling another procedure well need to store current RA
 
-    la t0, RA_STASH
-    sw ra, 0(t0)
-
+    addi sp, sp, -4
+    sw ra, 0(sp)
+    
     la t0, CURRENT_MAP
     lb a0, 0(t0)
     call GET_DATA_FROM_MAP
 
-    la t0, RA_STASH
-    lw ra, 0(t0)
 
     # a0 = map data
 
@@ -104,6 +102,9 @@ UPDATE_CHAR_POS:
     la t0, CURR_DIRECTION
     li t1, 0
     sb t1, 0(t0)
+
+    lw ra, 0(sp)
+    addi sp, sp, 4
 
 ret
 
@@ -121,8 +122,8 @@ CLS:
 
 
 
-.include "sprites/backgrounds/h1f.s"
+.include "../sprites/backgrounds/h1f.s"
 # .include "animation.s"
-.include "sprites/backgrounds/h1fdata.s"
-.include "sprites/backgrounds/lab.s"
-.include "sprites/backgrounds/labdata.s"
+.include "../sprites/backgrounds/h1fdata.s"
+.include "../sprites/backgrounds/lab.s"
+.include "../sprites/backgrounds/labdata.s"

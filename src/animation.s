@@ -4,7 +4,6 @@
 CURR_DIRECTION: .byte  1
 CHAR_POS:	.half 32,208			# x, y
 OLD_CHAR_POS:	.half 64,64	# x, y
-RA_STASH: .word 0 # stash of rgster adresses
 
 # store which frame od character where using on animation rn (1 , 2, or 3)
 CURR_FRAME: .byte 1
@@ -35,8 +34,8 @@ SEPARATOR2: .ascii " , "
 PRINT_LAST_POS:
     # we need to print a squareof the current map 16  by 16  starting from the old character position.
     # store ra
-    la t0, RA_STASH
-    sw ra, 0(t0)
+    addi sp, sp, -4
+    sw ra, 0(sp)  
 
 
     # print syscall to see values of old char pos (debug):
@@ -64,8 +63,8 @@ PRINT_LAST_POS:
     
     
     #  load ra
-    la t0, RA_STASH
-    lw ra, 0(t0)
+    lw ra 0(sp)
+    addi sp, sp, 4
     ret
 
 
@@ -315,44 +314,53 @@ PRINT_LINHA_SQUARE:
 
 
 
-PRINT_BRACKGROUND:
-	la a0, home_1f
+PRINT_BACKGROUND:
+    addi    sp, sp, -4
+    sw      ra, 0(sp)  
+
 	li a1, 0
 	li a2, 0
 	li a3, 0
 	call PRINT
 	li a3, 1
 	call PRINT
+
+    lw      ra, 0(sp)                      # 4-byte Folded Reload
+    addi    sp, sp, 4   
     ret
 
 
 
+SLEEP:
+	li a7,132
+	ecall
+    ret
 .data
-.include "sprites/characters/hero_left_1.data"
-.include "sprites/characters/hero_left_2.data"
-.include "sprites/characters/hero_left_3.data"
+.include "../sprites/characters/hero_left_1.s"s
+.include "../sprites/characters/hero_left_2.s"
+.include "../sprites/characters/hero_left_3.s"
 
 
 
-.include "sprites/characters/hero_right_1.data"
-.include "sprites/characters/hero_right_2.data"
-.include "sprites/characters/hero_right_3.data"
+.include "../sprites/characters/hero_right_1.s"
+.include "../sprites/characters/hero_right_2.s"
+.include "../sprites/characters/hero_right_3.s"
 
 
 
-.include "sprites/characters/hero_up_1.data"
-.include "sprites/characters/hero_up_2.data"
-.include "sprites/characters/hero_up_3.data"
+.include "../sprites/characters/hero_up_1.s"
+.include "../sprites/characters/hero_up_2.s"
+.include "../sprites/characters/hero_up_3.s"
 
 
-.include "sprites/characters/hero_down_1.data"
-.include "sprites/characters/hero_down_2.data"
-.include "sprites/characters/hero_down_3.data"
+.include "../sprites/characters/hero_down_1.s"
+.include "../sprites/characters/hero_down_2.s"
+.include "../sprites/characters/hero_down_3.s"
 
 
 
-.include "sprites/characters/oak_full.s"
-.include "sprites/backgrounds/oak-introduction-bg.s"
+.include "../sprites/characters/oak_full.s"
+.include "../sprites/backgrounds/oak-introduction-bg.s"
 
-.include "sprites/misc/baseround.s"
+.include "../sprites/misc/baseround.s"
 

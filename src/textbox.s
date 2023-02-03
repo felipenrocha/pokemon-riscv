@@ -1,7 +1,7 @@
 
 # .include "SYSTEM/MACROSv21.s"
 .data
-.include "sprites/textbox/textbox.s"
+.include "../sprites/textbox/textbox.s"
 TEXT_RA: .word 0
 
 .text

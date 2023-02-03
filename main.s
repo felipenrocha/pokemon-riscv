@@ -3,9 +3,6 @@
 .data 
 
 
-# s1 = RA_STASH TOP ADRESS
-
-
 .text
 
 		
@@ -20,16 +17,13 @@ call INICIO_JOGO
 
 call CLS
 
+li a0, 500
+call SLEEP 
+
 SETUP:
 	mv s0, zero
 	call GET_MAP_ADRESS
-	# a0 = map adress returned by procedure above
-	li a1, 0
-	li a2, 0
-	li a3, 0
-	call PRINT
-	li a3, 1
-	call PRINT
+	call PRINT_BACKGROUND
 	
 #
 
@@ -50,6 +44,9 @@ GAME_LOOP:
 	# check if teleport occurred to change the background
 	beq a0, zero, NO_TELEPORT 
 	# teleport case:
+		call CLS
+		li a0, 250
+		call SLEEP
 		call GET_MAP_ADRESS #a0 = current map adress
 		li a1, 0
 		li a2, 0
@@ -88,11 +85,11 @@ NO_TELEPORT:
 
 	
 .data
-.include "textbox.s"
-.include "animation.s"
-.include "inicio.s"
+.include "src/textbox.s"
+.include "src/animation.s"
+.include "src/inicio.s"
+.include "src/menu.s"
+.include "src/background.s"
+.include "src/keypoll.s"
 
-.include "menu.s"
-.include "background.s"
-.include "keypoll.s"
 .include "SYSTEM/SYSTEMv21.s"
