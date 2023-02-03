@@ -2,23 +2,28 @@
 
 .data 
 
+
 # s1 = RA_STASH TOP ADRESS
 
 
 .text
 
 		
-# GAME_LOOP:
-# 	la a0, msg1
-# 	call PRINTBOX
-# j GAME_LOOP
 
 jal ra, MENU
-	
+
+call CLS
+
+
+#  inicio do jogo
+call INICIO_JOGO	
+
+call CLS
 
 SETUP:
 	mv s0, zero
 	call GET_MAP_ADRESS
+	# a0 = map adress returned by procedure above
 	li a1, 0
 	li a2, 0
 	li a3, 0
@@ -30,6 +35,7 @@ SETUP:
 
 GAME_LOOP:
 
+# call keypoll for animation
 	call KEY2
 	
 	xori s0, s0, 1
@@ -38,6 +44,7 @@ GAME_LOOP:
 
 	#a0 needs to be the data of current map so we can teleport it or check if its in right position:
 	call GET_DATA_FROM_MAP
+	# check if player needs to tp
 	call CHECK_TELEPORT
 	#a0 = boolean if player is in position
 	# check if teleport occurred to change the background
@@ -51,7 +58,7 @@ GAME_LOOP:
 		li a3, 1
 		call PRINT
 		call UPDATE_CHAR_POS
-		jal TEXT_BOX
+		
 
 
 NO_TELEPORT:
@@ -62,6 +69,7 @@ NO_TELEPORT:
 	call GET_MAP_ADRESS
 	# a0 = current map adress
 
+	# void procedure to print last tile of map where character was (animation)
 	call PRINT_LAST_POS
 	# get the adress of image to be used (a0 = adress of image) 
 	call SPRITE_ADRESS
@@ -78,18 +86,12 @@ NO_TELEPORT:
 
 
 
-
-TEXT_BOX:
-		loopbox:
-		la a0, msg1
-		call PRINTBOX
-		j loopbox
-
-
 	
 .data
 .include "textbox.s"
 .include "animation.s"
+.include "inicio.s"
+
 .include "menu.s"
 .include "background.s"
 .include "keypoll.s"

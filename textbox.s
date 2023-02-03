@@ -3,44 +3,44 @@
 .data
 .include "sprites/textbox/textbox.s"
 TEXT_RA: .word 0
-msg1: .ascii "odeio oac era pra ser sexta"
-
 
 .text
-.data
-.text
+
+
+
 PRINTBOX:
 	# print box of text a0
-	la t0, TEXT_RA
-	sw ra, 0(t0)
+        addi    sp, sp, -4
+        sw      ra, 0(sp)                      # 4-byte Folded Spill
 
 	mv s2, a0
 
 	la a0, textbox
 	li a1, 32
 	li a2, 176
-	mv a3, s0
+	li a3, 0
+	call PRINT
+	li a3, 1
 	call PRINT
 
 	mv a0, s2
 
-
-	# la a0, msg1
+	mv a0, s2
 	li a1,48
 	li a2,192
+	li a4, 0
 	call PRINTSTR_BOX
-	xori s0, s0,1
+
 
 	mv a0, s2
-
 	# la a0, msg1
 	li a1,48
 	li a2,192
+	li a4, 1
 	call PRINTSTR_BOX
 
-
-	la t0, TEXT_RA
-	lw ra, 0(t0)
+	lw      ra, 0(sp)                      # 4-byte Folded Reload
+	addi    sp, sp, 4
 
 	ret
 
@@ -48,6 +48,5 @@ PRINTBOX:
 PRINTSTR_BOX:
 	 	li a7,104
 		li a3,0xc700
-		mv a4,s0
 		ecall
 		ret		

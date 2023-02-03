@@ -84,7 +84,8 @@ CLS:
 	ret
 				
 		# ecall print string
-PRINTSTR: 	li a7,104
+PRINTSTR: 	
+		li a7,104
 		la a0,msg1
 		li a1,0
 		li a2,0

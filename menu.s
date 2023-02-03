@@ -2,6 +2,7 @@
 .include "sprites/menu/menu_1.data"
 .include "sprites/menu/menu_2.data"
 .include "sprites/menu/menu_3.data"
+
 RA_STACK_MENU: .word 0
 
 .text
@@ -110,9 +111,11 @@ FIM_key_menu:		ret				# retorna
 
 
 
+
+
+
+
 CONTINUE_MENU:
 	mv ra, s0
 	ret
-
-
 

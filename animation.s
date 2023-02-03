@@ -325,12 +325,6 @@ PRINT_BRACKGROUND:
 	call PRINT
     ret
 
-PRINT_CHAR:
-
-    la t0, CHAR_POS
-	lh a1, 0(t0)
-	lh a2, 2(t0)
-	mv a3, s0
 
 
 .data
@@ -357,5 +351,8 @@ PRINT_CHAR:
 
 
 
+.include "sprites/characters/oak_full.s"
+.include "sprites/backgrounds/oak-introduction-bg.s"
 
+.include "sprites/misc/baseround.s"
 
