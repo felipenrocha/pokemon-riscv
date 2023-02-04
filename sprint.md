@@ -13,7 +13,8 @@
                 - [x] Select move properly
                 - [x] Go Back
             - [ ] Pokemon Switch:
-                - [ ] Add data corresponding to user pokemons;
+                - [x] Add data corresponding to user pokemons;
+                - [x] Menu animation
                 - [ ] develop pokemon being switched;
             - [ ] Inventory System:
                 - [ ] Add data corresponding to item;
