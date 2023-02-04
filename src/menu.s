@@ -1,7 +1,7 @@
 .data
-.include "../sprites/menu/menu_1.data"
-.include "../sprites/menu/menu_2.data"
-.include "../sprites/menu/menu_3.data"
+.include "../sprites/menu/menu_1.s"
+.include "../sprites/menu/menu_2.s"
+.include "../sprites/menu/menu_3.s"
 
 RA_STACK_MENU: .word 0
 

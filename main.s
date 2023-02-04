@@ -5,12 +5,12 @@
 
 call START_BATTLE
 
-# call  MENU
+call  MENU
 
-# call CLS
+call CLS
 
-# #  inicio do jogo
-# call INICIO_JOGO	
+#  inicio do jogo
+call INICIO_JOGO	
 
 # call CLS
 
@@ -79,7 +79,6 @@ call START_BATTLE
 
 
 
-# exit:
 
 li a7, 10
 ecall
