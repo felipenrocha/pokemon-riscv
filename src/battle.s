@@ -1,13 +1,13 @@
 .data
 # index of current pokemon from character
-current_friendly_pokemon: .byte 0
 current_menu_option: .byte 0
+# hold status of which menu phase we are: 0: INITIAL, 1: battle phase, 2: bag
+current_menu_selected: .byte 0
 #indedx for current enemy being battled
 current_enemy: .byte 1
-
+debug: .ascii "In"
 
 # index of current pokemon from enemy
-current_enemy_pokemon: .byte 0
 .text
 
 
@@ -28,7 +28,7 @@ START_BATTLE:
     li a3, 1
     call PRINT
 
-# Print friendly and enemy pokemon
+    # Print friendly and enemy pokemon
     la t0, current_friendly_pokemon
     lb a0, 0(t0)
 
@@ -42,8 +42,9 @@ START_BATTLE:
     li a3, 1
     call PRINT
 
-# print enemy pokemon
-
+    # print enemy pokemon
+    la t0, current_enemy_pokemon
+    lb a0, 0(t0)
     call GET_ENEMY_POKEMON_IMAGE_ADRESS
     #a0 now has adress of image to be printed
     # enemy fixed position: 184, 50
@@ -66,6 +67,8 @@ START_BATTLE:
 
 
 #END SETUP START
+call PRINT_BLACK_FRIENDLY_BAR
+call PRINT_BLACK_ENEMY_BAR
 
 # now well need a battle loop to see whats going on, navigate thorug menu, etc.
 
@@ -83,8 +86,12 @@ BATTLELOOP:
     # if keys were pressed, clear all last POSITIONS of arrows
 # NO keys pressed:
 NKPB:
-    call PRINT_MENU_ARROW
+# void to print current hp bar
+    call PRINT_HP_BAR
     
+# void to print menu arrow
+    call PRINT_MENU_ARROW
+        
 
 
 j BATTLELOOP
@@ -100,44 +107,6 @@ END_START_BATTLE:
     addi sp, sp, 4
     ret
 
-
-
-GET_FRIENDLY_POKEMON_IMAGE_ADRESS:
-
-    # a0 = index of pokemon
-
-    # index 0 == dragonite
-    bne a0, zero, NFPIA0
-    la a0, dragonitefriendly
-    ret
-# not friendly pokemon image adress of index 0
-NFPIA0:   
-
-    # default
-
-    la a0, dragonitefriendly
-    ret
-
-
-
-
-GET_ENEMY_POKEMON_IMAGE_ADRESS:
-# index 1 == venusaur   
-  # index 0 == dragonite
-    bne a0, zero, NEPIA0
-    la a0, dragonitefriendly
-    ret
-# not friendly pokemon image adress of index 0
-NEPIA0:   
-    li t0, 1
-    bne a0, t0, NEPIA1
-    la a0, venusaurenemy
-NEPIA1:   
-    # default
-    la a0, venusaurenemy
-    ret
-
-ret
 
 
 PRINT_MENU_ARROW:
@@ -297,11 +266,24 @@ POMB1:
 SELECT_OPTION_MENU_BATTLE:
 # still need to program this
 # rn only leaving 
+ 
+
     la t0, current_menu_option
     lb t1, 0(t0)
     # new menu option will be 0:
     sb zero, 0(t0)
+    # option 0 == attack menu
+    bne t1, zero,SOMB0
+    #  attack menu phase
 
+    addi sp, sp -4
+    sw ra, 0(sp)
+    call ATTACK_MENU
+    lw ra, 0(sp)
+    addi sp, sp, 4
+    ret
+
+SOMB0:
     li t2,3
     bne t1, t2, SOMB3 
     j END_START_BATTLE
@@ -364,6 +346,9 @@ CLEAR_LAST_ARROW:
 
 .data
 .include "../sprites/backgrounds/battlebg1.s"
+.include "../sprites/backgrounds/attackmenubg.s"
+
+
 .include "../sprites/menu/battlemenu.s"
 .include "../sprites/menu/arrow.s"
 .include "../sprites/menu/arrow_clear.s"

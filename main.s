@@ -91,4 +91,8 @@ ecall
 .include "src/background.s"
 .include "src/keypoll.s"
 .include "src/battle.s"
+.include "src/hpbar.s"
+.include "src/pokemon.s"
+.include "src/attack.s"
+
 .include "SYSTEM/SYSTEMv21.s"

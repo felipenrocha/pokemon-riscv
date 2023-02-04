@@ -1,0 +1,12 @@
+Well store the pokemons stats and stuff as an array of data, ill write here whats the pattern
+
+
+each pokemon will have an index: 0,1,2,3, dragonite will be index 0.
+
+
+so the file pokemon0.s will have a list of bytes containing the following data:
+
+pokemon_index: .byte index, current hp, total hp
+
+todo:
+next stats index 0 of move, .., index 3 of move, stats

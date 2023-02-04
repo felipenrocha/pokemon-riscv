@@ -335,6 +335,11 @@ SLEEP:
 	li a7,132
 	ecall
     ret
+
+
+DRAW_LINE:
+	li a7,47
+	ecall
 .data
 .include "../sprites/characters/hero_left_1.s"s
 .include "../sprites/characters/hero_left_2.s"
