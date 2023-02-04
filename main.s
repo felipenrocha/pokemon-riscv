@@ -95,6 +95,6 @@ ecall
 .include "src/pokemon.s"
 .include "src/attack.s"
 .include "src/move.s"
-
+.include "src/type_advantage.s"
 
 .include "SYSTEM/SYSTEMv21.s"

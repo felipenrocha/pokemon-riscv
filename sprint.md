@@ -9,6 +9,9 @@
         - [ ] Select options:
             - [x] Attack Moves:
                 - [x] Print move being used
+                - [x] Deal damage
+                - [x] Select move properly
+                
             - [ ] Inventory
             - [ ] Pokemons
             - [x] Run
@@ -23,6 +26,7 @@
 
 
 <!-- TODO: fix bug: -->
-<!-- NAVIGATING IN AND OUT ATTACK MENU -->
+<!-- NAVIGATING IN AND OUT ATTACK MENU (FIXED) -->
+<!--  bug: return to main menu after attack -->
 
 
