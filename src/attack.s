@@ -161,10 +161,8 @@ ATTACK_MENU_OPTION:
 ENEMY_DIED:
     li t0, 2
     sh t0, 2(a0)
-    call PRINT_BLACK_ENEMY_BAR
-    la t0, AM_STASH
-    lw ra, 0(t0)
-    j BATTLELOOP
+
+    
 
 
 ENEMY_NOT_DEAD:
