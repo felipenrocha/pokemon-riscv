@@ -10,6 +10,7 @@ pokemon_index: .half index, current hp, total hp,type, move0, move1, move2, move
 
 move_index: .half index, type, base_power
 
+heropokemons :.half total pokemons, pokemon index 0, ... ,pokemon index 6
 
 todo:  .., index 3 of move, stats
 
@@ -34,3 +35,15 @@ todo:  .., index 3 of move, stats
 # pokemon list:
 # 0: dragonite (dragon)
 # 1: venusaur  (grass)
+# 2: charizard
+# 3: blastoise
+# 4: STARYU
+# 5: rapidash
+# 6: raticate
+
+
+# menu battle option:
+# 0 = top left (attack)
+# 1 = top right (bag)
+# 2 = bottom right (pokemon)
+# 3 = bottom left (run)

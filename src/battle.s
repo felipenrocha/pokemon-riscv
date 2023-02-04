@@ -1,8 +1,6 @@
 .data
 # index of current pokemon from character
 current_menu_option: .byte 0
-# hold status of which menu phase we are: 0: INITIAL, 1: battle phase, 2: bag
-current_menu_selected: .byte 0
 #indedx for current enemy being battled
 current_enemy: .byte 1
 debug: .ascii "In"
@@ -19,61 +17,10 @@ START_BATTLE:
     addi sp, sp, -4
     sw ra, 0(sp)
 
+
     #do stuff here
-
-#SETUP START BATTLE:
-    # print BACKGROUND:
-    la a0, battlebg1
-    li a1, 0
-    li a2, 0
-    li a3, 0
-    call PRINT
-    li a3, 1
-    call PRINT
-
-    # Print friendly and enemy pokemon
-    la t0, current_friendly_pokemon
-    lb a0, 0(t0)
-
-
-    call GET_FRIENDLY_POKEMON_IMAGE_ADRESS
-    #a0 now has adress of image to be printed
-    li a1, 32
-    li a2, 154
-    li a3, 0
-    call PRINT
-    li a3, 1
-    call PRINT
-
-    # print enemy pokemon
-    la t0, current_enemy_pokemon
-    lb a0, 0(t0)
-    call GET_ENEMY_POKEMON_IMAGE_ADRESS
-    #a0 now has adress of image to be printed
-    # enemy fixed position: 184, 50
-    li a1, 184
-    li a2, 50
-    li a3, 0
-    call PRINT
-    li a3, 1
-    call PRINT
-
-# PRINT MENU:
-    la a0, battlemenu
-    # MENU FIXED POSITION: 156,166
-    li a1, 156
-    li a2, 166
-    li a3, 0
-    call PRINT
-    li a3, 1
-    call PRINT
-
-
-#END SETUP START
-call PRINT_BLACK_FRIENDLY_BAR
-call PRINT_BLACK_ENEMY_BAR
-call PRINT_HP_BAR
-
+    # SETUP B
+    call SETUP_BATTLE
 
 # now well need a battle loop to see whats going on, navigate thorug menu, etc.
 
@@ -269,9 +216,6 @@ POMB1:
 
 
 SELECT_OPTION_MENU_BATTLE:
-# still need to program this
-# rn only leaving 
- 
 
     la t0, current_menu_option
     lb t1, 0(t0)
@@ -294,10 +238,34 @@ SELECT_OPTION_MENU_BATTLE:
     ret
 
 SOMB0:
+    li t2,2
+    bne t1, t2, SOMB1
+    # option == pokemon switch
+    addi sp, sp -4
+    sw ra, 0(sp)
+
+    call POKEMON_SWITCH_MENU
+    call IA_ATTACK
+        la a0, battlemenu
+        # MENU FIXED POSITION: 156,166
+        li a1, 156
+        li a2, 166
+        li a3, 0
+        call PRINT
+        li a3, 1
+        call PRINT
+
+SWB0:
+    lw ra, 0(sp)
+    addi sp, sp, 4
+    ret
+
+SOMB1:
     li t2,3
     bne t1, t2, SOMB3 
     j END_START_BATTLE
 SOMB3:
+
 ret
 
 
@@ -354,6 +322,82 @@ CLEAR_LAST_ARROW:
     addi sp, sp, 4
     ret
 
+
+
+SETUP_BATTLE:
+    addi sp, sp -4
+    sw ra, 0(sp)
+#SETUP START BATTLE:
+    # print BACKGROUND:
+
+    # print current pokemon
+
+    la t0, current_friendly_pokemon
+    lh a0, 0(t0)
+    # a0 = index
+    call GET_POKEMON_STRING
+    # a0 = pokemon name
+    li a7, 4
+    ecall
+
+
+
+    la a0, battlebg1
+    li a1, 0
+    li a2, 0
+    li a3, 0
+    call PRINT
+    li a3, 1
+    call PRINT
+
+    # Print friendly and enemy pokemon
+    la t0, current_friendly_pokemon
+    lb a0, 0(t0)
+
+
+    call GET_FRIENDLY_POKEMON_IMAGE_ADRESS
+    #a0 now has adress of image to be printed
+    li a1, 32
+    li a2, 154
+    li a3, 0
+    call PRINT
+    li a3, 1
+    call PRINT
+
+    # print enemy pokemon
+    la t0, current_enemy_pokemon
+    lb a0, 0(t0)
+    call GET_ENEMY_POKEMON_IMAGE_ADRESS
+    #a0 now has adress of image to be printed
+    # enemy fixed position: 184, 50
+    li a1, 184
+    li a2, 50
+    li a3, 0
+    call PRINT
+    li a3, 1
+    call PRINT
+
+# PRINT MENU:
+    la a0, battlemenu
+    # MENU FIXED POSITION: 156,166
+    li a1, 156
+    li a2, 166
+    li a3, 0
+    call PRINT
+    li a3, 1
+    call PRINT
+
+
+#END SETUP START
+call PRINT_BLACK_FRIENDLY_BAR
+call PRINT_BLACK_ENEMY_BAR
+call PRINT_HP_BAR
+
+
+
+    lw ra, 0(sp)
+    addi, sp, sp, 4
+    ret
 .data
 .include "../sprites/backgrounds/battlebg1.s"
 .include "../sprites/backgrounds/attackmenubg.s"
@@ -361,10 +405,18 @@ CLEAR_LAST_ARROW:
 
 .include "../sprites/menu/battlemenu.s"
 .include "../sprites/menu/arrow.s"
+.include "../sprites/menu/arrow2.s"
+
 .include "../sprites/menu/arrow_clear.s"
 
 
 
 .include "../sprites/pokemons/dragonitefriendly.s"
+.include "../sprites/pokemons/charizardfriendly.s"
+.include "../sprites/pokemons/blastoisefriendly.s"
+.include "../sprites/pokemons/pikachufriendly.s"
+.include "../sprites/pokemons/rapidashfriendly.s"
+.include "../sprites/pokemons/raticatefriendly.s"
+
 .include "../sprites/pokemons/venusaurenemy.s"
 

@@ -1,4 +1,4 @@
-### TODO this sprint:
+### TODO this sprint (BATTLE SYSTEM):
 
 - [x]   Battle Background;
 - [x]   Battle Menu;
@@ -12,11 +12,16 @@
                 - [x] Deal damage
                 - [x] Select move properly
                 - [x] Go Back
-                
-            - [ ] Inventory
-            - [ ] Pokemons
-            - [x] Run
-            -
+            - [ ] Pokemon Switch:
+                - [ ] Add data corresponding to user pokemons;
+                - [ ] develop pokemon being switched;
+            - [ ] Inventory System:
+                - [ ] Add data corresponding to item;
+                - [ ] Add data corresponding to user item;
+                - [ ] develop item being used;
+             - [x] Run:
+                - [x] Exit State;
+            
     - [x]   Pokemon HP BAR:
         - [x] Print total/current hp
         - [x] Animation after attack
@@ -29,6 +34,7 @@
 
 <!-- TODO: fix bug: -->
 <!-- NAVIGATING IN AND OUT ATTACK MENU (FIXED) -->
-<!--  bug: return to main menu after attack -->
+<!--  bug: return to main menu after attack (FIXED) -->
 
 
+<!-- TODO ADD NEW POKEMONS -->

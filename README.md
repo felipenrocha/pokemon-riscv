@@ -52,7 +52,7 @@
 para luta, luta para psíquico, etc.);
 - [ ]   (1,0) mínimo de três tipos de telas jogáveis: seleção de pokémons iniciais, área aberta, e ginásio;
 - [ ]   (1,0) fases com número crescente de inimigos (inclusa a animação deles), espaços abertos e paredes;
-- [ ]   (1,0) IA que controla os inimigos e sistema de turnos da luta;
+- [x]   (1,0) IA que controla os inimigos e sistema de turnos da luta;
 - [x]   (0,5) cenas de batalhas, podendo ser apenas uma imagem mostrando os personagens e as vidas deles;
 - [ ]   (0,5) menu de ações do jogador (na batalha?);
 - [x]   (0,5) movimentação dos personagens
