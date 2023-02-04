@@ -1,16 +1,20 @@
 .data
-move0str: .ascii "Tackle \n"
+move0str: .ascii "Tackle\n"
 .moveseparator0: .byte 0
-move1str: .ascii "D.Claw \n"
+move1str: .ascii "D.Claw\n"
 .moveseparator1: .byte 0
-move2str: .ascii "A.Tail \n"
+move2str: .ascii "A.Tail\n"
 .moveseparator2: .byte 0
-move3str: .ascii "F.Blast \n"
+move3str: .ascii "F.Blast\n"
+.moveseparator3: .byte 0
+move4str: .ascii "S.Beam\n"
+.moveseparator4: .byte 0
 
 .include "../data/move0.s"
 .include "../data/move1.s"
 .include "../data/move2.s"
 .include "../data/move3.s"
+.include "../data/move4.s"
 
 
 
@@ -41,7 +45,11 @@ GMS2:
     la a0, move3str
     ret
 GMS3:
-
+    li t1, 4
+    bne t0, t1, GMS4
+    la a0, move4str
+    ret
+GMS4:
 GMSDEFAULT:
     # DEFAULT CASE: TAcklE
     la a0, move0str
@@ -75,6 +83,12 @@ GMDA2:
     la a0, move3
     ret
 GMDA3:
+    addi t1, t1, 1
+    bne t0, t1, GMDA4
+    la a0, move4
+    ret
+GMDA4:
+
 GMDADEFAULT:
     # defaul: tacle
     la a0, move0

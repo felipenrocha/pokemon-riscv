@@ -72,6 +72,8 @@ START_BATTLE:
 #END SETUP START
 call PRINT_BLACK_FRIENDLY_BAR
 call PRINT_BLACK_ENEMY_BAR
+call PRINT_HP_BAR
+
 
 # now well need a battle loop to see whats going on, navigate thorug menu, etc.
 
@@ -90,7 +92,6 @@ BATTLELOOP:
 # NO keys pressed:
 NKPB:
 # void to print current hp bar
-    call PRINT_HP_BAR
     
 # void to print menu arrow
     call PRINT_MENU_ARROW

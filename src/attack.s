@@ -120,7 +120,7 @@ ATTACK_MENU_OPTION:
 
     # base power = 4 + base adress
     mv s2, a0
-    # s2 will store the adress of move selected for later
+    #  will store the adress of move selected for laters2
     #  t0 = base power
 
     # lets check if the oponents pokemon has weakness agains my move.
@@ -159,7 +159,7 @@ ATTACK_MENU_OPTION:
     # current hp = 
     lh t1, 2(a0)
     sub t1, t1, s2
-    blt t1, zero, ENEMY_DIED
+    ble t1, zero, ENEMY_DIED
     sh t1, 2(a0)
     j ENEMY_NOT_DEAD
 
@@ -167,7 +167,13 @@ ATTACK_MENU_OPTION:
 ENEMY_DIED:
     li t0, 2
     sh t0, 2(a0)
-
+    mv a0, s6
+    # a1 = index of pokemon
+    la t0, current_friendly_pokemon
+    lh t1, 0(t0)
+    mv a1, t1
+    call PRINT_ATTACK
+    j FIM_ATTACK_MENU
 
 
 ENEMY_NOT_DEAD:
@@ -175,7 +181,14 @@ ENEMY_NOT_DEAD:
 
     #    a0 =  index of attack
     mv a0, s6
+    #  a1 =  index of pokemon
+    la t0, current_friendly_pokemon
+    lh a1, 0(t0)
     call PRINT_ATTACK
+
+
+    # ia attack goes here
+    call IA_ATTACK
    
 
 
@@ -183,7 +196,6 @@ ENEMY_NOT_DEAD:
 FIM_ATTACK_MENU:
   
         #  reprint moves when shits over
-        # call PRINTMOVESMENU
         call PRINT_BLACK_ENEMY_BAR
         call PRINT_ENEMY_BAR
         call PRINTMOVESMENU
@@ -338,15 +350,17 @@ PRINT_ATTACK:
     # a0 = move index
     mv s6, a0
     # s6 = move index
-
+    # s8 = pokemon index
+    mv s8, a1
+    # a1 = current pokemon index
 
     # Lets print the attack:
     #  "my pokemon used attack move!"
     # getting my pokemon name:
-    la t0, current_friendly_pokemon
-    lh a0, 0(t0) #a0 = index of current pokemon
+    mv a0, s8 #a0 = index of current pokemon
     call PRINTATTACKMENU # void
-   
+
+    mv a0, s8 #a0 = index of current pokemon
     # Print str ecall 104: 
     call GET_POKEMON_STRING
     # a0 = pokemon string
@@ -357,8 +371,7 @@ PRINT_ATTACK:
     li a4, 0
     li a7, 104
     ecall
-    la t0, current_friendly_pokemon
-    lh a0, 0(t0) #a0 = index of current pokemon
+    mv a0, s8 #a0 = index of current pokemon
     call GET_POKEMON_STRING
     li a4, 1
     ecall

@@ -96,5 +96,6 @@ ecall
 .include "src/attack.s"
 .include "src/move.s"
 .include "src/type_advantage.s"
+.include "src/ai.s"
 
 .include "SYSTEM/SYSTEMv21.s"

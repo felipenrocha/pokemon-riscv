@@ -28,6 +28,8 @@ todo:  .., index 3 of move, stats
 # 1: dragon claw
 # 2: aqua-tail
 # 3: fire blast
+# 4: solar beam
+
 
 # pokemon list:
 # 0: dragonite (dragon)

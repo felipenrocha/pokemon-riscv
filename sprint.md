@@ -11,14 +11,16 @@
                 - [x] Print move being used
                 - [x] Deal damage
                 - [x] Select move properly
+                - [x] Go Back
                 
             - [ ] Inventory
             - [ ] Pokemons
             - [x] Run
+            -
     - [x]   Pokemon HP BAR:
         - [x] Print total/current hp
         - [x] Animation after attack
-    - []   Pokemon battle stuff:
+    - [ ]   Pokemon battle stuff:
         - [x] Pokemon Data
         - [x] Pokemon Moves
         - [x] Pokemon Weakness

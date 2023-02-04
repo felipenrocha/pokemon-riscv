@@ -1,5 +1,8 @@
 .data
 hpbarseparator: .ascii " / \n"
+hpbarseparator0: .byte 0
+hpbarbuffer: .ascii "          "
+
 .text
 PRINT_HP_BAR:
     addi sp, sp, -4
@@ -81,6 +84,20 @@ LPFBIN2:
     j LPFBIN2
 
 LPFBOUT2:
+
+
+    # clear the old one if it has:
+    li a7, 104
+    la a0, hpbarbuffer
+    li a1, 20
+    li a2, 136
+    li a3, 0xfefe
+
+    li a4, 0
+    ecall
+    # la a0, hpbarbuffer
+    # li a4, 1
+    # ecall
 
 
 #  well also print the current amount of hp and the total of the pokemon
