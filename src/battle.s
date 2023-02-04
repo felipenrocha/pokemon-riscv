@@ -7,11 +7,17 @@ current_menu_selected: .byte 0
 current_enemy: .byte 1
 debug: .ascii "In"
 
+AM_STASH: .word 0
+
 # index of current pokemon from enemy
 .text
 
 
 START_BATTLE:
+
+
+    la t0, AM_STASH
+    sw ra, 0(t0)
 
     addi sp, sp, -4
     sw ra, 0(sp)
@@ -102,6 +108,7 @@ j END_START_BATTLE
 
 #end battle:
 END_START_BATTLE:
+
 
     lw ra, 0(sp)
     addi sp, sp, 4

@@ -13,9 +13,10 @@ ATTACKMENULOOP:
 
     # lets print the attacks of our pokemon
     call KEYATTACKMENU
-        
+        li t0, 5
+        beq t0, a0, ENDAM
 
-    beq a0, zero, NKPA
+        beq a0, zero, NKPA
         ## if keys were pressed, clear all last POSITIONS of arrows
         call CLEAR_LAST_ARROW
         li a0, 0
@@ -27,6 +28,9 @@ NKPA:
     li t0, 5
     beq t0, a0, ENDAM
 
+    la a0, debug
+    li a7, 1
+    ecall
     
 j ATTACKMENULOOP
 
@@ -158,7 +162,9 @@ ENEMY_DIED:
     li t0, 2
     sh t0, 2(a0)
     call PRINT_BLACK_ENEMY_BAR
-    J FIM_ATTACK_MENU
+    la t0, AM_STASH
+    lw ra, 0(t0)
+    j BATTLELOOP
 
 
 ENEMY_NOT_DEAD:
@@ -349,7 +355,7 @@ PRINT_BACK_MENU:
     call PRINT
     li a0, 5
 
-
+ 
     lw ra, 0(sp)
     addi sp, sp, 4
     ret

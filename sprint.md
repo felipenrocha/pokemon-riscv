@@ -7,7 +7,8 @@
         - [x] Print menu arrow;
         - [x] Animate through options;
         - [ ] Select options:
-            - [x] Attack Moves 
+            - [x] Attack Moves:
+                - [x] Print move being used
             - [ ] Inventory
             - [ ] Pokemons
             - [x] Run
