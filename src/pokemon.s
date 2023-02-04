@@ -2,8 +2,8 @@
 .include "../data/pokemon0.s"
 .include "../data/pokemon1.s"
 
-current_friendly_pokemon: .byte 0
-current_enemy_pokemon: .byte 1
+current_friendly_pokemon: .half 0
+current_enemy_pokemon: .half 1
 
 .text
 

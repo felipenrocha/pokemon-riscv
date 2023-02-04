@@ -94,5 +94,7 @@ ecall
 .include "src/hpbar.s"
 .include "src/pokemon.s"
 .include "src/attack.s"
+.include "src/move.s"
+
 
 .include "SYSTEM/SYSTEMv21.s"

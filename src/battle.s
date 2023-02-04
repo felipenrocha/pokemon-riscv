@@ -278,7 +278,12 @@ SELECT_OPTION_MENU_BATTLE:
 
     addi sp, sp -4
     sw ra, 0(sp)
+        
+
     call ATTACK_MENU
+
+
+
     lw ra, 0(sp)
     addi sp, sp, 4
     ret

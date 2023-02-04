@@ -6,7 +6,29 @@ each pokemon will have an index: 0,1,2,3, dragonite will be index 0.
 
 so the file pokemon0.s will have a list of bytes containing the following data:
 
-pokemon_index: .byte index, current hp, total hp
+pokemon_index: .half index, current hp, total hp,type, move0, move1, move2, move3
 
-todo:
-next stats index 0 of move, .., index 3 of move, stats
+move_index: .half index, type, base_power
+
+
+todo:  .., index 3 of move, stats
+
+#types list:
+# 0: normal
+# 1: dragon
+# 2: grass
+# 3: water
+# 4: fire
+
+
+
+
+# attacks list:
+# 0: tackle
+# 1: dragon claw
+# 2: aqua-tail
+# 3: fire blast
+
+# pokemon list:
+# 0: dragonite (dragon)
+# 1: venusaur  (grass)

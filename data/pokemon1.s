@@ -1,1 +1,1 @@
-pokemon1: .half 1, 125, 125
+pokemon1: .half 1, 125, 125, 2, 0, 0, 0, 0
