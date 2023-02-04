@@ -20,12 +20,12 @@
     - [x]   Pokemon HP BAR:
         - [x] Print total/current hp
         - [x] Animation after attack
-    - [ ]   Pokemon battle stuff:
+    - [x]   Pokemon battle stuff:
         - [x] Pokemon Data
         - [x] Pokemon Moves
         - [x] Pokemon Weakness
         - [x] Damage Calculator
-
+    - [x] AI Enemy
 
 <!-- TODO: fix bug: -->
 <!-- NAVIGATING IN AND OUT ATTACK MENU (FIXED) -->
