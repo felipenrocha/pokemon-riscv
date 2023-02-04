@@ -32,9 +32,6 @@ ATTACKMENULOOP:
 NKPA:
     call PRINT_MENU_ARROW
 
-    li t0, 5
-    beq t0, a0, ENDAM
-
 
     
 j ATTACKMENULOOP
@@ -190,6 +187,7 @@ FIM_ATTACK_MENU:
         call PRINT_BLACK_ENEMY_BAR
         call PRINT_ENEMY_BAR
         call PRINTMOVESMENU
+        li a5, 5
         lw ra, 8(sp)
         addi sp, sp, 12
         ret

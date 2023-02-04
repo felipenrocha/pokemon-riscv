@@ -24,7 +24,7 @@ CHECK_WEAKNESS:
     call GET_MOVE_DATA_ADRESS
     # a0 = data adress of move with index a0
     lh s3, 2(a0) # type = adress + 2
-    #  s3 = type of move (store it for later lol)
+    #  s3 = type of move (store it for later lol) (should be using sp)
     # s4 adress of movce (save it for later too lol)
     mv s4, a0
     # now lets get the type of the enemy of index a1.
@@ -182,9 +182,7 @@ WEAKNESS_STR:
         sw ra, 0(sp)
 
         # Print its super effective! or its not very effective... BASED ON TYPE a0 
-        li a7, 1
-        ecall
-
+ 
         li t0, 1
         bne a0, t0, WS0
                 # super effective case

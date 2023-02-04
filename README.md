@@ -48,13 +48,13 @@
 - [ ]   (0,5) história do jogo (com caixas de diálogo);
 - [ ]   (1,0) música e efeitos sonoros;
 - [ ]   (0,5) mínimo de 1 item utilizável;
-- [ ]   (1,0) mínimo de 5 tipos de pokémons diferentes, com um sistema “pedra-papel-tesoura” entre eles (normal perde
+- [x]   (1,0) mínimo de 5 tipos de pokémons diferentes, com um sistema “pedra-papel-tesoura” entre eles (normal perde
 para luta, luta para psíquico, etc.);
 - [ ]   (1,0) mínimo de três tipos de telas jogáveis: seleção de pokémons iniciais, área aberta, e ginásio;
 - [ ]   (1,0) fases com número crescente de inimigos (inclusa a animação deles), espaços abertos e paredes;
 - [ ]   (1,0) IA que controla os inimigos e sistema de turnos da luta;
-- [ ]   (0,5) cenas de batalhas, podendo ser apenas uma imagem mostrando os personagens e as vidas deles;
-- [ ]   (0,5) menu de ações do jogador;
-- [ ]   (0,5) movimentação dos personagens
+- [x]   (0,5) cenas de batalhas, podendo ser apenas uma imagem mostrando os personagens e as vidas deles;
+- [ ]   (0,5) menu de ações do jogador (na batalha?);
+- [x]   (0,5) movimentação dos personagens
 - [ ]   (0,5) três tipos de terrenos especiais;
 - [ ]   (2.0) documentação: descreva seu projeto no formato de um Artigo Científico IEEE para o SBGames.
