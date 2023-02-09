@@ -12,10 +12,11 @@
                 - [x] Deal damage
                 - [x] Select move properly
                 - [x] Go Back
-            - [ ] Pokemon Switch:
+            - [x] Pokemon Switch:
                 - [x] Add data corresponding to user pokemons;
                 - [x] Menu animation
-                - [ ] develop pokemon being switched;
+                - [x] develop pokemon being switched;
+                - [x] check if pokemon is alive when selected
             - [ ] Inventory System:
                 - [ ] Add data corresponding to item;
                 - [ ] Add data corresponding to user item;
@@ -31,11 +32,14 @@
         - [x] Pokemon Moves
         - [x] Pokemon Weakness
         - [x] Damage Calculator
+        - [ ] Check if a pokemon died.
     - [x] AI Enemy
 
 <!-- TODO: fix bug: -->
 <!-- NAVIGATING IN AND OUT ATTACK MENU (FIXED) -->
 <!--  bug: return to main menu after attack (FIXED) -->
+<!--  bug: SWITCH NOT WORKING (FIXED) -->
+
 
 
 <!-- TODO ADD NEW POKEMONS -->

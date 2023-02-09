@@ -22,6 +22,8 @@ pokemon5str: .ascii "Rapidash \n"
 separator5: .half 1
 pokemon6str: .ascii "Raticate \n"
 separator6: .half 1
+deathstr: .ascii "has fainted! \n"
+separator7: .half 1
 .text
 
 #TABLE TO RETURN POKEMON VALUES BASED ON ITS INDEX
@@ -193,4 +195,109 @@ GPS6:
 GPSDEFAULT:
 #default case
     la a0, pokemon0str
+    ret
+
+
+
+
+CHECK_POKEMON_DEAD:
+    #  a0 = index of pokemon
+    #  RETURNS boolean if pokemon is dead
+    addi sp, sp -4
+    sw ra, 0(sp)
+
+    call GET_CURRENT_POKEMON_DATA
+    #  a0 = adress of current a0 data
+    #  check if current hp <= 2 (kill zone)
+    #  current hp = adress of pokemon + 2
+    #  current hp = adress of pokemon + 2
+    lh t0, 2(a0)
+    # t0 = current hp
+    li t1, 2
+    ble t0, t1, CPDT # if t0 <= t1 then target
+        # pokemon not dead (return false)
+        li a0, 0
+        j  CPDE
+
+# pokemon is dead
+CPDT:
+    # update total number of pokemons alive
+    la t0, heropokemons
+    lh t1, 0(t0)
+    addi t1, t1, -1
+    sh t1, 0(t0)
+
+    # return true
+    li a0, 1
+
+CPDE:
+# CHECK_POKEMON_DEAD END
+    li a7, 1
+    ecall
+
+    lw ra, 0(sp)
+    addi sp, sp, 4
+    ret
+
+
+CHECK_REMAING_POKEMON:
+# CHECK IF PLAYER HAS REMAINING POKEMON
+    la t0, heropokemons
+    lh t1, 0(t0)
+    ble t1, zero, CRMPF
+    # pokemons still alive -> return true
+        li a0, 1
+        ret
+
+CRMPF:
+# CHECK REMAINING POKEMON false CASE
+    # all pokemons dead
+    li a0, 0
+    ret
+
+PRINT_DEAD_POKEMON_STR:
+# print: "Name of pokemon has fainted!"
+# a0 == index of pokemon
+    addi sp, sp, -4
+    sw ra, 0(sp)
+    # mv s0, a0
+
+    call GET_POKEMON_STRING
+    # a0 = string of pokemon, lets print it
+    li a7, 104
+    li a1, 174
+    li a2, 182
+    li a3, 0xc700
+    li a4, 0
+    ecall
+    mv a0, s0
+    call GET_POKEMON_STRING
+
+    li a4, 1 
+    ecall
+
+
+# print has fainted!
+    la a0, deathstr
+    li a7, 104
+    li a1, 174
+    li a2, 198
+    li a3, 0xc700
+    li a4, 0
+    ecall
+    la a0, deathstr
+    li a4, 1 
+    ecall
+
+
+    li a0, 1000
+    call SLEEP
+    li a0, 1000
+    call SLEEP
+
+    call PRINTATTACKMENU
+
+
+    lw ra, 0(sp)
+    addi sp, sp, 4
     ret

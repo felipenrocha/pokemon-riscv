@@ -4,7 +4,8 @@ current_menu_option: .byte 0
 #indedx for current enemy being battled
 current_enemy: .byte 1
 debug: .ascii "In"
-
+# ra to save the end of battle stage
+END_BATTLE_RA: .word 0
 # index of current pokemon from enemy
 .text
 
@@ -16,7 +17,8 @@ START_BATTLE:
 
     addi sp, sp, -4
     sw ra, 0(sp)
-
+    la t0, END_BATTLE_RA
+    sw ra, 0(t0)
 
     #do stuff here
     # SETUP B
@@ -55,8 +57,10 @@ j END_START_BATTLE
 END_START_BATTLE:
 
 
-    lw ra, 0(sp)
+    # lw ra, 0(sp)
     addi sp, sp, 4
+    la t0, END_BATTLE_RA
+    lw ra, 0(t0)
     ret
 
 
@@ -246,6 +250,7 @@ SOMB0:
 
     call POKEMON_SWITCH_MENU
     call IA_ATTACK
+
         la a0, battlemenu
         # MENU FIXED POSITION: 156,166
         li a1, 156
