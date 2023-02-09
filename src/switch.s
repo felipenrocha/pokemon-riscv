@@ -1,7 +1,7 @@
 .data
 .include "../sprites/backgrounds/switchbg.s"
 .include "../data/heropokemons.s"
-current_menu_switch: .byte 0
+current_menu_switch: .half 0
 .text
 # procedures to implement the switch pokemon system
 
@@ -209,7 +209,7 @@ GO_BACK_SWITCH_MENU:
 SWITCH_NEXT_OPTION:
     # add menu option by 1 up to 5 (0-5 pokemon)
     la t0, current_menu_switch
-    lb t1, 0(t0)
+    lh t1, 0(t0)
     addi t1, t1, 1
 
     li a7,1
@@ -218,14 +218,14 @@ SWITCH_NEXT_OPTION:
 
     li t2, 5
     bgt t1, t2, RESET_SWITCH_OPTION1
-    sb t1, 0(t0)
+    sh t1, 0(t0)
     li a0, 0
-
     ret
+
 RESET_SWITCH_OPTION1:
     # store current option as 0
     li t1, 0
-    sb t1, 0(t0)
+    sh t1, 0(t0)
     li a0, 0
     ret
 
@@ -236,6 +236,11 @@ SWITCH_PREVIOUS_OPTION:
     lb t1, 0(t0)
     addi t1, t1, -1
     li t2, 0
+
+    li a7,1
+    mv a0, t1
+    ecall
+
     blt t1, t2, RESET_SWITCH_OPTION2
     sb t1, 0(t0)
     li a0, 0
@@ -256,25 +261,36 @@ SELECT_SWITCH_OPTION:
     addi sp, sp, -4
     sw ra, 0(sp)
 
+
     #   Change value of current friendly pokemon index based on option
-    # index of pokemon will be: heropokemons + 2 + index*2
+    # index of pokemon will be: heropokemons + 4 + index*2
 
     la t0, current_menu_switch
-    lb t1, 0(t0)
-
-
-    li a7, 1
-    mv a0, t1
-    ecall
-
-    la t2, heropokemons
-    addi t2, t2, 2
+    # index of menu
+    lh t1, 0(t0)
     #  index * 2
     slli t1, t1, 1
 
 
+
+    la t2, heropokemons
+    addi t2, t2, 2
+    # t2 = adress pokemon[0]
+
+   
+
+
+
     add t2, t2, t1
-    sh t1, 0(t2)
+    #  t2 =  adress of pokemon[index menu]
+
+    lh t1, 0(t2) 
+    #  t1 = index of pokemon selected
+
+    
+    li a7, 1
+    mv a0, t1
+    ecall
     # t1 = new index
 
 
@@ -331,7 +347,7 @@ PRINT_SWITCH_ARROW:
 GET_ARROW_Y_MENU_POS:
     # position yi = 30 + 20*i (i == menu selected position)
     la t0, current_menu_switch
-    lb t1, 0(t0)
+    lh t1, 0(t0)
     li t3, 20
     mul t1, t1,t3
     addi t1, t1, 30

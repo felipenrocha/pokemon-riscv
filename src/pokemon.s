@@ -36,7 +36,7 @@ GET_CURRENT_POKEMON_DATA:
 GCPD0:
     li t0, 1
     bne a0, t0, GCPD1
-    # index == 0 -> return pokemon1.s
+    # index == 1 -> return pokemon1.s
     la a0, pokemon1
     ret
 GCPD1:

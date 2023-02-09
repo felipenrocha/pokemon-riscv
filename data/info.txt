@@ -10,7 +10,7 @@ pokemon_index: .half index, current hp, total hp,type, move0, move1, move2, move
 
 move_index: .half index, type, base_power
 
-heropokemons :.half total pokemons, pokemon index 0, ... ,pokemon index 6
+heropokemons :.half: total pokemons, pokemon index 0, ... ,pokemon index 6
 
 todo:  .., index 3 of move, stats
 
