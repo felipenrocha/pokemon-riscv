@@ -15,9 +15,6 @@ losestr: .ascii "You lost the Battle! \n"
 
 START_BATTLE:
 
-
-
-
     addi sp, sp, -4
     sw ra, 0(sp)
     la t0, END_BATTLE_RA
@@ -233,47 +230,82 @@ SELECT_OPTION_MENU_BATTLE:
 
     addi sp, sp -4
     sw ra, 0(sp)
-        
-
     call ATTACK_MENU
-
-
-
     lw ra, 0(sp)
     addi sp, sp, 4
     ret
 
 SOMB0:
-    li t2,2
+    li t2, 1
     bne t1, t2, SOMB1
-    # option == pokemon switch
+    # inventory
     addi sp, sp -4
     sw ra, 0(sp)
 
-    call POKEMON_SWITCH_MENU
-    call IA_ATTACK
+    call INVENTORY_MENU
 
-        la a0, battlemenu
-        # MENU FIXED POSITION: 156,166
-        li a1, 156
-        li a2, 166
-        li a3, 0
-        call PRINT
-        li a3, 1
-        call PRINT
-
-SWB0:
     lw ra, 0(sp)
     addi sp, sp, 4
     ret
 
 SOMB1:
+    li t2,2
+    bne t1, t2, SOMB2
+    # option == pokemon switch
+    addi sp, sp -4
+    sw ra, 0(sp)
+    call POKEMON_SWITCH_MENU
+    call IA_ATTACK
+
+    la t0, current_friendly_pokemon
+    lh a0, 0(t0)
+    call CHECK_POKEMON_DEAD
+    # print if pokemon died:
+    # a0 == boolean if pokemon died
+    addi sp, sp, -4
+    sw a0, 0(sp) # store a0 for and late
+    call CHECK_REMAING_POKEMON
+    # a0 boolean if player has pokemons still
+    ## if all pokemons are dead, end battle 
+    beq a0, zero, LOSE_BATTLE  
+   
+    lw a0, 0(sp)
+    addi sp, sp, 4
+    #  a0 == boolean if pokemon died:
+    ## if pokemon died and still have pokemons -> call switch
+    ## if pokemon died a0 == 1
+    li t0, 1
+    blt a0, t0, PSNW2
+        # call print: "your pokemon died"
+        la t0, current_friendly_pokemon
+        lh a0, 0(t0)
+        call PRINT_DEAD_POKEMON_STR
+        call POKEMON_SWITCH_MENU
+
+PSNW2:
+
+
+    la a0, battlemenu
+    # MENU FIXED POSITION: 156,166
+    li a1, 156
+    li a2, 166
+    li a3, 0
+    call PRINT
+    li a3, 1
+    call PRINT
+
+    lw ra, 0(sp)
+    addi sp, sp, 4
+    ret
+SOMB2:
+# RUN OPTION
     li t2,3
     bne t1, t2, SOMB3 
     j END_START_BATTLE
-SOMB3:
 
-ret
+SOMB3:  
+    li a0, 5
+    ret
 
 
 

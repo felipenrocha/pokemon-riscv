@@ -1,12 +1,14 @@
-### TODO this sprint (BATTLE SYSTEM):
 
+# SPRINT 1
+
+### sprint 0 (BATTLE SYSTEM) (SPRINT FINISHED):
 - [x]   Battle Background;
 - [x]   Battle Menu;
-- [ ]   Battle Loop:
-    - [ ]   Menu navigating:
+- [x]   Battle Loop:
+    - [x]   Menu navigating:
         - [x] Print menu arrow;
         - [x] Animate through options;
-        - [ ] Select options:
+        - [x] Select options:
             - [x] Attack Moves:
                 - [x] Print move being used
                 - [x] Deal damage
@@ -17,14 +19,14 @@
                 - [x] Menu animation
                 - [x] develop pokemon being switched;
                 - [x] check if pokemon is alive when selected 
-            - [ ] Inventory System:
-                - [ ] Add data corresponding to item;
-                - [ ] Add data corresponding to user item;
-                - [ ] develop item being used;
+            - [x] Inventory System:
+                - [x] Add data corresponding to item;
+                - [x] Add data corresponding to user item;
+                - [x] develop item being used;
              - [x] Run:
                 - [x] Exit State;
             - [x] Check if battle is over
-            - [ ] Switch enemy pokemon when dead.
+            - [x] Switch enemy pokemon when dead.
     - [x]   Pokemon HP BAR:
         - [x] Print total/current hp
         - [x] Animation after attack
@@ -34,8 +36,8 @@
         - [x] Pokemon Weakness
         - [x] Damage Calculator
         - [x] Check if a pokemon died.
-        - [ ] Check if enemy pokemon died.
-        - [ ] Switch enemy pokemon if dead.
+        - [x] Check if enemy pokemon died.
+        - [x] Switch enemy pokemon if dead.
     - [x] AI Enemy
     - [x] Enemy NPC System:
         - [x] Enemey Data

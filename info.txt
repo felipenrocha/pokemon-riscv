@@ -12,7 +12,9 @@ move_index: .half index, type, base_power
 
 heropokemons :.half: total pokemons, pokemon index 0, ... ,pokemon index 6
 
-todo:  .., index 3 of move, stats
+inventory: .half, quantity of items, index_item0, index_item1
+
+item: .half, index_item, amount to raise hp
 
 #types list:
 # 0: normal
@@ -45,6 +47,10 @@ todo:  .., index 3 of move, stats
 #9: exeggutor              (enemy only)
 #10: moltres              (enemy only)
 
+
+# items: 
+# 0 potion
+# 1 super potion
 
 # menu battle option:
 # 0 = top left (attack)

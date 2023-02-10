@@ -90,6 +90,7 @@ ecall
 .include "src/background.s"
 .include "src/keypoll.s"
 .include "src/enemy.s"
+.include "src/inventory.s"
 .include "src/battle.s"
 .include "src/hpbar.s"
 .include "src/pokemon.s"

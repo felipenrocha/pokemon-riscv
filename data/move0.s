@@ -1,1 +1,1 @@
-move0: .half 0, 0, 30
+move0: .half 0, 0, 40

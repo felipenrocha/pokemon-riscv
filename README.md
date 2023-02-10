@@ -9,7 +9,16 @@
 #### Projeto Final de OAC
 
 
-###### Running
+
+
+###### Running on FPGRARS
+
+    Windows: 
+    ```
+        fgprars main.s
+    ```
+
+###### Running on RARS
 
         1. Open Rars15_Custom.jar
 
@@ -35,13 +44,13 @@
 
 ###### How to Play:
 
-        PS.: Run the inputs inside the Keybord and Display MMIO Simulator display (bottom one);
+        PS.: Run the inputs inside the Keybord and Display MMIO Simulator display (bottom one) (only lower cases!);
 
         1. W,A,S,D To move the character;
 
         2. Z select;
 
-        3. B go back;
+        3. X go back;
 
 ### Requirements TODO:
 

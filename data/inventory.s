@@ -1,0 +1,1 @@
+inventory: .half 2, 0, 1

@@ -161,7 +161,7 @@ ATTACK_MENU_OPTION:
     sub t1, t1, s2
     li t3, 2
     ble t1, t3, ENEMY_DIED
-    sh t3, 2(a0)
+    sh t1, 2(a0)
     j ENEMY_NOT_DEAD
 
 

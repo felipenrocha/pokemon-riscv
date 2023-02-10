@@ -26,6 +26,7 @@ POKEMON_SWITCH_MENU:
 
     # print inventory bg:
     call SETUP_SWITCH_BG
+    call PRINTSWITCHNAMES
     
     PSMLOOP:
     # menu loop
@@ -335,7 +336,6 @@ SETUP_SWITCH_BG:
     call PRINT
     li a3, 1
     call PRINT
-    call PRINTSWITCHNAMES
 
     lw ra 0(sp)
     addi, sp, sp, 4
