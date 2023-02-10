@@ -16,7 +16,7 @@
                 - [x] Add data corresponding to user pokemons;
                 - [x] Menu animation
                 - [x] develop pokemon being switched;
-                - [x] check if pokemon is alive when selected
+                - [x] check if pokemon is alive when selected 
             - [ ] Inventory System:
                 - [ ] Add data corresponding to item;
                 - [ ] Add data corresponding to user item;

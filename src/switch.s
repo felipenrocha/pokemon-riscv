@@ -2,6 +2,11 @@
 .include "../sprites/backgrounds/switchbg.s"
 .include "../data/heropokemons.s"
 current_menu_switch: .half 0
+switchnotallowedstr: .ascii "Not Allowed! \n"
+separatorswitch0: .half 0
+switchnotallowedst1r: .ascii "Pokemon is fainted!\n"
+separatorswitch1: .half 0
+
 .text
 # procedures to implement the switch pokemon system
 
@@ -261,7 +266,8 @@ SELECT_SWITCH_OPTION:
     addi sp, sp, -4
     sw ra, 0(sp)
 
-
+# SELECT_SWITCH_OPTION beggining
+SWOB:
     #   Change value of current friendly pokemon index based on option
     # index of pokemon will be: heropokemons + 4 + index*2
 
@@ -286,15 +292,30 @@ SELECT_SWITCH_OPTION:
 
     lh t1, 0(t2) 
     #  t1 = index of pokemon selected
+    mv s6, t1
 
-    
-    li a7, 1
+    #  CHECK IF pokemon is dead:
     mv a0, t1
-    ecall
-    # t1 = new index
+    call CHECK_POKEMON_DEAD
+    # a0 == 1 if pokemon is dead and 0 if not
+    beq a0, zero, SWOND
+    # POKEMON is dead ( u cant choose ) 
+    #  print you cant choose this pokemon!
+    la a0, switchnotallowedstr
+    call PRINTBOX
+    li a0, 500
+    call SLEEP
+    la a0, switchnotallowedst1r
+    call PRINTBOX
 
 
+    lw ra, 0(sp)
+    addi sp, sp, 4
+    ret
+
+SWOND:
     la t0, current_friendly_pokemon
+    mv t1, s6
     sh t1, 0(t0)
     li a0, 5
     lw ra, 0(sp)
@@ -391,3 +412,5 @@ CAMS0:
     lw ra, 0(sp)
     addi sp,sp,4
     ret
+
+
