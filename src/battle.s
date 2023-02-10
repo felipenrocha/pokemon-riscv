@@ -2,10 +2,13 @@
 # index of current pokemon from character
 current_menu_option: .byte 0
 #indedx for current enemy being battled
-current_enemy: .byte 1
+current_enemy: .half 0
 debug: .ascii "In"
+winstr: .ascii "You won the Battle! \n"
 # ra to save the end of battle stage
 END_BATTLE_RA: .word 0
+losestr: .ascii "You lost the Battle! \n"
+
 # index of current pokemon from enemy
 .text
 
@@ -50,7 +53,6 @@ NKPB:
 j BATTLELOOP
 
 # this will return to main 
-j END_START_BATTLE
 
 
 #end battle:
@@ -403,6 +405,26 @@ call PRINT_HP_BAR
     lw ra, 0(sp)
     addi, sp, sp, 4
     ret
+
+
+WIN_BATTLE:
+    #  print = you won the battle, and exit
+    la a0, winstr
+    call PRINTBOX
+    li a0, 1000
+    call SLEEP
+    j END_START_BATTLE
+
+
+LOSE_BATTLE:
+    #  print = you won the battle, and exit
+    la a0, losestr
+    call PRINTBOX
+    li a0, 1000
+    call SLEEP
+    j END_START_BATTLE
+
+
 .data
 .include "../sprites/backgrounds/battlebg1.s"
 .include "../sprites/backgrounds/attackmenubg.s"
@@ -419,9 +441,15 @@ call PRINT_HP_BAR
 .include "../sprites/pokemons/dragonitefriendly.s"
 .include "../sprites/pokemons/charizardfriendly.s"
 .include "../sprites/pokemons/blastoisefriendly.s"
-.include "../sprites/pokemons/pikachufriendly.s"
 .include "../sprites/pokemons/rapidashfriendly.s"
 .include "../sprites/pokemons/raticatefriendly.s"
+.include "../sprites/pokemons/staryufriendly.s"
+
 
 .include "../sprites/pokemons/venusaurenemy.s"
+.include "../sprites/pokemons/exeggutorenemy.s"
+.include "../sprites/pokemons/moltresenemy.s"
+.include "../sprites/pokemons/snorlaxenemy.s"
+.include "../sprites/pokemons/gyaradosenemy.s"
+
 

@@ -6,6 +6,12 @@
 .include "../data/pokemon4.s"
 .include "../data/pokemon5.s"
 .include "../data/pokemon6.s"
+.include "../data/pokemon7.s"
+.include "../data/pokemon8.s"
+.include "../data/pokemon9.s"
+.include "../data/pokemon10.s"
+
+
 
 
 pokemon0str: .ascii "Dragonite \n"
@@ -22,8 +28,16 @@ pokemon5str: .ascii "Rapidash \n"
 separator5: .half 1
 pokemon6str: .ascii "Raticate \n"
 separator6: .half 1
-deathstr: .ascii "has fainted! \n"
+pokemon7str: .ascii "Snorlax \n"
 separator7: .half 1
+pokemon8str: .ascii "Gyarados \n"
+separator8: .half 1
+pokemon9str: .ascii "Exeggutor \n"
+separator9: .half 1
+pokemon10str: .ascii "Moltres \n"
+separator10: .half 1
+deathstr: .ascii "has fainted! \n"
+separator11: .half 1
 .text
 
 #TABLE TO RETURN POKEMON VALUES BASED ON ITS INDEX
@@ -75,6 +89,31 @@ GCPD5:
     la a0, pokemon6
     ret
 GCPD6:
+    addi t0, t0, 1
+    bne a0, t0, GCPD7
+    # index == 7 -> return pokemon7.s
+    la a0, pokemon7
+    ret
+GCPD7:
+    addi t0, t0, 1
+    bne a0, t0, GCPD8
+    # index == 8 -> return pokemon8.s
+    la a0, pokemon8
+    ret
+GCPD8:
+    addi t0, t0, 1
+    bne a0, t0, GCPD9
+    # index == 9 -> return pokemon9.s
+    la a0, pokemon9
+    ret
+GCPD9:
+    addi t0, t0, 1
+    bne a0, t0, GCPD10
+    # index == 10 -> return pokemon10.s
+    la a0, pokemon10
+    ret
+GCPD10:
+
 GCPDD:   
     # default: pokemon 0
     la a0, pokemon0
@@ -85,7 +124,6 @@ GCPDD:
 GET_FRIENDLY_POKEMON_IMAGE_ADRESS:
 
     # a0 = index of pokemon
-
     # index 0 == dragonite
     bne a0, zero, NFPIA0
     la a0, dragonitefriendly
@@ -109,7 +147,7 @@ NFPIA2:
 NFPIA3:
     addi t0, t0, 1
     bne a0, t0, NFPIA4
-    la a0, pikachufriendly
+    la a0, staryufriendly
     ret
 NFPIA4:
     addi t0, t0, 1
@@ -122,6 +160,11 @@ NFPIA5:
     la a0, raticatefriendly
     ret
 NFPIA6:
+    addi t0, t0, 1
+    bne a0, t0, NFPIA7
+    la a0, raticatefriendly
+    ret
+NFPIA7:
 
     # default
 NFPIADEFAULT:
@@ -142,8 +185,28 @@ NEPIA0:
     li t0, 1
     bne a0, t0, NEPIA1
     la a0, venusaurenemy
-
+    ret
 NEPIA1:   
+    li t0, 7
+    bne a0, t0, NEPIA2
+    la a0, snorlaxenemy
+    ret
+NEPIA2:
+    addi t0, t0, 1
+    bne a0, t0, NEPIA3
+    la a0, gyaradosenemy
+    ret
+NEPIA3:
+    addi t0, t0, 1
+    bne a0, t0, NEPIA4
+    la a0, exeggutorenemy
+    ret
+NEPIA4:
+    addi t0, t0, 1
+    bne a0, t0, NEPIA5
+    la a0, moltresenemy
+    ret
+NEPIA5:
 
 NEPIADEFAULT:
     # default
@@ -191,6 +254,28 @@ GPS5:
     la a0, pokemon6str
     ret
 GPS6:
+    addi t0, t0, 1
+    bne a0, t0, GPS7
+    la a0, pokemon7str
+    ret
+GPS7:
+    addi t0, t0, 1
+    bne a0, t0, GPS8
+    la a0, pokemon8str
+    ret
+GPS8:    
+addi t0, t0, 1
+    bne a0, t0, GPS9
+    la a0, pokemon9str
+    ret
+GPS9:
+    addi t0, t0, 1
+    bne a0, t0, GPS10
+    la a0, pokemon10str
+    ret
+GPS10:
+
+
 
 GPSDEFAULT:
 #default case

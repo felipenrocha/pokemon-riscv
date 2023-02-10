@@ -1,6 +1,7 @@
 .data
 .include "../sprites/backgrounds/switchbg.s"
 .include "../data/heropokemons.s"
+
 current_menu_switch: .half 0
 switchnotallowedstr: .ascii "Not Allowed! \n"
 separatorswitch0: .half 0

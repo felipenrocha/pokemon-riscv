@@ -1,3 +1,4 @@
+
 .text
 # module resposible to generate attacks for ai
 IA_ATTACK:

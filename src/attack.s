@@ -159,8 +159,9 @@ ATTACK_MENU_OPTION:
     # current hp = 
     lh t1, 2(a0)
     sub t1, t1, s2
-    ble t1, zero, ENEMY_DIED
-    sh t1, 2(a0)
+    li t3, 2
+    ble t1, t3, ENEMY_DIED
+    sh t3, 2(a0)
     j ENEMY_NOT_DEAD
 
 
@@ -173,7 +174,35 @@ ENEMY_DIED:
     lh t1, 0(t0)
     mv a1, t1
     call PRINT_ATTACK
+    #  sub amount of current enemys
+
+
+
+
+    la t0, current_enemy
+    lh t1, 0(t0)
+    call GET_ENEMY_DATA
+    lh t1, 0(a0)
+    addi t1, t1, -1
+    sh t1, 0(a0)
+    #  call print enemy fainted
+    la t0, current_enemy_pokemon
+        lh a0, 0(t0)
+        call PRINT_DEAD_POKEMON_STR
+    # check if theres remaining enemy pokemons
+    la t0, current_enemy
+    lh t1, 0(t0)
+    mv a0, t1
+    call CHECK_REMAINING_POKEMON_ENEMY
+
+    # # a0 = boolean if theres still pokemons IF 0 -> END BATTLE
+    beq a0, zero, WIN_BATTLE
+    # not 0 -> switch to next pokemon
+    call SWITCH_POKEMON_ENEMY
+    #  redraw enemy pokemon
+    call SETUP_BATTLE
     j FIM_ATTACK_MENU
+
 
 
 ENEMY_NOT_DEAD:
@@ -201,7 +230,7 @@ ENEMY_NOT_DEAD:
     call CHECK_REMAING_POKEMON
     # a0 boolean if player has pokemons still
     ## if all pokemons are dead, end battle 
-    beq a0, zero, END_START_BATTLE  
+    beq a0, zero, LOSE_BATTLE  
     
     lw a0, 0(sp)
     addi sp, sp, 4
@@ -467,11 +496,7 @@ PRINT_ATTACK:
             li a0, 500
             call SLEEP
 PAJ0:
-   
-
-
-
-
+  
     # CLEAR  menu
 
     call PRINTATTACKMENU

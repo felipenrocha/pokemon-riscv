@@ -33,13 +33,17 @@ todo:  .., index 3 of move, stats
 
 
 # pokemon list:
-# 0: dragonite (dragon)
-# 1: venusaur  (grass)
-# 2: charizard
-# 3: blastoise
-# 4: STARYU
-# 5: rapidash
-# 6: raticate
+# 0: dragonite  (dragon) (friendly only)
+# 1: venusaur   (grass)  (enemy only)
+# 2: charizard          (friendly only)
+# 3: blastoise          (friendly only)
+# 4: STARYU             (friendly only)
+# 5: rapidash           (friendly only)
+# 6: raticate           (friendly only)
+# 7: SNORLAX            (enemy only)
+#8 : gyarados            (enemy only)
+#9: exeggutor              (enemy only)
+#10: moltres              (enemy only)
 
 
 # menu battle option:

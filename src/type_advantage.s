@@ -72,11 +72,11 @@ CWBNN:
             ret
     CWBDND:
         # dragon type but not dragon enemy
-        # # if types == grass water fire  multiplier = 0.5
+        # # if types == grass water fire  multiplier = 1
         # we can check that if the oponent type has index >=2
             li t0, 2
             blt a1, t0, CWBND
-            li a0, 50
+            li a0, 100
             li s7, 2
             ret
 CWBND:

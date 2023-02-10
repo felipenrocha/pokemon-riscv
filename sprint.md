@@ -23,7 +23,8 @@
                 - [ ] develop item being used;
              - [x] Run:
                 - [x] Exit State;
-            
+            - [x] Check if battle is over
+            - [ ] Switch enemy pokemon when dead.
     - [x]   Pokemon HP BAR:
         - [x] Print total/current hp
         - [x] Animation after attack
@@ -32,9 +33,13 @@
         - [x] Pokemon Moves
         - [x] Pokemon Weakness
         - [x] Damage Calculator
-        - [ ] Check if a pokemon died.
+        - [x] Check if a pokemon died.
+        - [ ] Check if enemy pokemon died.
+        - [ ] Switch enemy pokemon if dead.
     - [x] AI Enemy
-
+    - [x] Enemy NPC System:
+        - [x] Enemey Data
+        - [x] Enemy Index
 <!-- TODO: fix bug: -->
 <!-- NAVIGATING IN AND OUT ATTACK MENU (FIXED) -->
 <!--  bug: return to main menu after attack (FIXED) -->
