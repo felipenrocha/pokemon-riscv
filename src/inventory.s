@@ -98,6 +98,7 @@ GO_BACK_INVENTORY_MENU:
 SELECT_INVENTORY_OPTION:
     addi sp, sp, -4
     sw ra, 0(sp)
+    call PLAY_SELECT
 
     #  select item index -> raise current pokemon hp 
     #  i can get the item index with the values of current menu option and inventory

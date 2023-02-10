@@ -221,6 +221,7 @@ POMB1:
 SELECT_OPTION_MENU_BATTLE:
 
     la t0, current_menu_option
+    
     lb t1, 0(t0)
     # new menu option will be 0:
     sb zero, 0(t0)
@@ -230,6 +231,7 @@ SELECT_OPTION_MENU_BATTLE:
 
     addi sp, sp -4
     sw ra, 0(sp)
+	call PLAY_SELECT
     call ATTACK_MENU
     lw ra, 0(sp)
     addi sp, sp, 4
@@ -241,7 +243,7 @@ SOMB0:
     # inventory
     addi sp, sp -4
     sw ra, 0(sp)
-
+	call PLAY_SELECT
     call INVENTORY_MENU
 
     lw ra, 0(sp)
@@ -254,6 +256,7 @@ SOMB1:
     # option == pokemon switch
     addi sp, sp -4
     sw ra, 0(sp)
+	call PLAY_SELECT
     call POKEMON_SWITCH_MENU
     call IA_ATTACK
 

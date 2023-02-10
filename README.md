@@ -55,7 +55,7 @@
 ### Requirements TODO:
 
 - [x]   (0,5) história do jogo (com caixas de diálogo);
-- [ ]   (1,0) música e efeitos sonoros;
+- [x]   (1,0) música e efeitos sonoros;
 - [ ]   (0,5) mínimo de 1 item utilizável;
 - [x]   (1,0) mínimo de 5 tipos de pokémons diferentes, com um sistema “pedra-papel-tesoura” entre eles (normal perde
 para luta, luta para psíquico, etc.);

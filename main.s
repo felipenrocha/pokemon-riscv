@@ -5,7 +5,7 @@
 
 call START_BATTLE
 
-# call  MENU
+call  MENU
 
 
 # #  inicio do jogo
@@ -93,6 +93,8 @@ ecall
 .include "src/inventory.s"
 .include "src/battle.s"
 .include "src/hpbar.s"
+.include "src/midi.s"
+
 .include "src/pokemon.s"
 .include "src/attack.s"
 .include "src/move.s"

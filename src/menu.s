@@ -7,20 +7,31 @@ RA_STACK_MENU: .word 0
 
 .text
 
-MENU:
-		mv s0, ra
-		la t1, RA_STACK_MENU
-		mv t0, ra
-		sw t0, 0(t1)
+MENU:	
+		addi sp, sp, -4
+		sw ra, 0(sp)
+		#  print menu 1
 
+		la a0, menu_1
+		li a1, 0
+		li a2, 0
+		li a3, 0
+		call PRINT
+		li a3, 1
+		call PRINT
+		call PLAY_INTRO
+		mv s0, ra
+MENU_LOOP:
+		
 	
-call KEYMENU
-	mv ra, s0
+
+		call KEYMENU
+		mv ra, s0
 	
-            li t1,0xFF000000	        # endereco inicial da Memoria VGA - Frame 0
-            li t2,0xFF012C00	    # endereco final 
-            la s1,menu_2		    # endereço dos dados da tela na memoria
-            addi s1,s1,8		    # primeiro pixels depois das informações de nlin ncol
+        li t1,0xFF000000	        # endereco inicial da Memoria VGA - Frame 0
+        li t2,0xFF012C00	    # endereco final 
+        la s1,menu_2		    # endereço dos dados da tela na memoria
+        addi s1,s1,8		    # primeiro pixels depois das informações de nlin ncol
 
 
 LOOP_MENU_2:
@@ -33,31 +44,10 @@ LOOP_MENU_2:
             j LOOP_MENU_2  
 
 LEAVE_LOOP_2:
-
-SLEEP1:
-	
-	li t0, 0 # i = 0
-	li t1, 0x0000ffff
-
-	LOOPSLEEP:
-	beq t0, t1, OUTSLEEP1
-	addi t0, t0, 1
-	j LOOPSLEEP
-
-OUTSLEEP1:
-
-SLEEP2:
-	
-	li t0, 0 # i = 0
-	li t1, 0x0000ffff
-
-	LOOPSLEEP2:
-	beq t0, t1, OUTSLEEP2
-	addi t0, t0, 1
-	j LOOPSLEEP2
-
-OUTSLEEP2:
-
+			
+			li a0, 1000
+			call SLEEP
+			mv ra, s0
 
 
             li t1,0xFF000000	        	# endereco inicial da Memoria VGA - Frame 0
@@ -78,20 +68,12 @@ LOOP_MENU_3:
 
 LEAVE_LOOP_3:
 	
-	
-	
-SLEEP3:
-	
-	li t0, 0 # i = 0
-	li t1, 0x00000fff
+			li a0, 500
+			call SLEEP
+			mv ra, s0
 
-	LOOPSLEEP3:
-	beq t0, t1, OUTSLEEP3
-	addi t0, t0, 1
-	j LOOPSLEEP3
 
-OUTSLEEP3:
-J MENU
+j MENU_LOOP
 
 
 
@@ -116,6 +98,8 @@ FIM_key_menu:		ret				# retorna
 
 
 CONTINUE_MENU:
-	mv ra, s0
+	call PLAY_SELECT
+	lw ra, 0(sp)
+	addi sp, sp, 4
 	ret
 

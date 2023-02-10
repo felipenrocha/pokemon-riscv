@@ -267,6 +267,7 @@ RESET_SWITCH_OPTION2:
 SELECT_SWITCH_OPTION:
     addi sp, sp, -4
     sw ra, 0(sp)
+    call PLAY_SELECT
 
 # SELECT_SWITCH_OPTION beggining
 SWOB:

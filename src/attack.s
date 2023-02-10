@@ -75,6 +75,7 @@ ATTACK_MENU_OPTION:
     sw a0, 0(sp) # a0 == 0(sp)
     sw a1, 4(sp) # a2 = 4(sp)
     sw ra, 8(sp)
+    call PLAY_SELECT
 
     # when user attacks well need to know which move was used so we can inflict damage on our oponent.
     # we can get which move was used by taking advantege of the value of current_menu_option:
