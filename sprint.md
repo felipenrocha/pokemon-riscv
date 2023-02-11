@@ -1,5 +1,11 @@
 
 # SPRINT 1
+- [x] Intro Song
+- [x] Select SFX
+- [] Begining Story
+- [] Add NPC'S
+- [] Check if player is in NPC place
+
 
 ### sprint 0 (BATTLE SYSTEM) (SPRINT FINISHED):
 - [x]   Battle Background;
