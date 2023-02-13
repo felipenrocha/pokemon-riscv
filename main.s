@@ -19,7 +19,7 @@ SETUP:
 	mv s0, zero
 	call GET_MAP_ADRESS
 	call PRINT_BACKGROUND
-	
+
     call START_GAME
 
 

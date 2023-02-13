@@ -50,7 +50,6 @@ PRINT_LAST_POS:
     li t4, 32
     li t5, 32
 
-    
 
 	# la a0, lab
 	mv a1, t1
