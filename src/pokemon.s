@@ -1,4 +1,6 @@
 .data
+.include "../data/selectionlist.s"
+
 .include "../data/pokemon0.s"
 .include "../data/pokemon1.s"
 .include "../data/pokemon2.s"
@@ -386,3 +388,80 @@ PRINT_DEAD_POKEMON_STR:
     lw ra, 0(sp)
     addi sp, sp, 4
     ret
+
+
+GET_POKEMON_INDEX_SELECTION:
+    # a0 = first x (112) 
+    # GET current x and divide it by 16  to get the index 
+    la t0, CHAR_POS
+    lh t1, 0(t0)
+    sub t1, t1, a0
+    li t2, 16
+    div t1, t1, t2
+    slli t1, t1, 1 # INDEX = INDEX * 2 ( half words)
+    # t1 = index we want to move based on selection list 
+    la t0, selectionlist
+    add t0, t0, t1 # new adress added to index
+    lh a0, 0(t0) 
+    li a7, 1
+    ecall
+GPISEND:    
+    ret
+
+CHECK_ALL_POKEMONS_SELECTED:
+    # booleanr returning if character has max pokemons already
+    la t0, heropokemons
+    lh t1, 0(t0)
+    li t2, 3
+    bge t1,t2 CAPST
+    li a0, 0
+    ret
+CAPST:
+    #check all poikemons selected true
+    li a0, 1
+    ret
+
+CHECK_POKEMON_ALREADY_SELECTED:
+addi sp, sp, -4
+sw ra, 0(sp)
+# a0 = index of pokemon selected
+
+# check already is in heropokemons
+la t0, heropokemons
+lh t1, 0(t0) #t1 = number of pokemons
+li t2, 0 # t2 = counter
+addi t0, t0, 2 # t0 = adress of first pokemons
+CPASLOOP:
+    beq t2, t1, CPASOUT
+    lh t3, 0(t0) # t3 = index of pokemon in heros pokemon
+    beq t3, a0, CPASTRUE
+    addi t0, t0, 2 # jump to next pokemon
+    addi t2, t2, 1
+    j CPASLOOP
+CPASTRUE:
+    li a0, 1
+    j CPASEND
+CPASOUT:
+# out loop : pokemon not selected yet
+    li a0, 0 
+CPASEND:
+lw ra, 0(sp)
+addi sp, sp ,4
+ret
+
+
+SET_NEW_POKEMON:
+# a0 = index o pokemon to be inserted in herospokemon]
+la t0, heropokemons
+lh t1, 0(t0) # amount of pokemons already, well push the new pokemon at index:
+# 2 +  amount of pokemon * 2
+    addi t0, t0, 2
+    slli t1, t1, 1
+    add t0, t0, t1 # t0 = adress to store new pokemon
+    sh a0, 0(t0) # stored in herospokemon
+# now lets add the amount
+    la t0, heropokemons
+    lh t1, 0(t0) # amount of pokemons already, well push the new pokemon at index:
+    addi t1, t1, 1
+    sh t1, 0(t0)
+ret

@@ -280,11 +280,6 @@ PRINT_SQUARE:
 	
 	
 PRINT_LINHA_SQUARE:
-
-
-
-
-
 	lw t6, 0(t1)
 	sw t6, 0(t0)
 

@@ -3,15 +3,14 @@
 - [x] Intro Song.
 - [x] Select SFX.
 - [x] Begining Story.
-- [] Add NPC'S.
-- [] Check if player is in NPC place.
-- [] Setup NPC as current enemy.
-- [] Pokemon selection:
+- [] Setup Gym's
+- [] End Game
+- [x] Pokemon selection:
     - [x] Check if current map is pokemon selection
-    - [] Print 6 Pokeballs
-    - [] 'Z' keypool for this map
-    - [] Menu for selection (with sprite)
-    - [] Select pokemon and update heropokemons
+    - [x] Print 6 Pokeballs
+    - [x] 'Z' keypool for this map
+    - [x] Menu for selection (with sprite)
+    - [x] Select pokemon and update heropokemons
 
 
 ### sprint 0 (BATTLE SYSTEM) (SPRINT FINISHED):
@@ -63,3 +62,5 @@
 
 
 <!-- TODO ADD NEW POKEMONS -->
+
+<!-- todo: new pokemon fx -->

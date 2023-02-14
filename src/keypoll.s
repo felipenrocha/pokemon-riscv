@@ -39,7 +39,14 @@ KEY2:
 		sb t4, 0(t3)
 		beq t2,t0,CHAR_CIMA		# se tecla pressionada for 'w', chama CHAR_CIMA
 
-		
+				
+		li t0,'z'
+		beq t2,t0,SELECT_ACTION
+				
+		li t0,'x'
+		beq t2,t0,JUMP_START_BATTLE
+
+
 
 		li t0,'a'
 		# store direction
@@ -70,7 +77,66 @@ FIM:
 
 		ret				# retorna
 				
-	
+
+
+JUMP_START_BATTLE:
+addi sp, sp, -4
+sw ra, 0(sp)
+
+call START_BATTLE
+
+lw ra, 0(sp)
+addi sp, sp, 4
+ret
+
+
+
+
+SELECT_ACTION:
+# press z on map
+addi sp, sp, -4
+sw ra, 0(sp)
+
+## if its character selection map -> check position-> if its equal to a pokeball one , select it
+	call IS_POKEMON_SELECTION # a0 == boolean if current maps is pokemon
+	beq a0, zero, NPSMS
+		# pokemon selection zone:
+		# CHECK IF current position is equal to a pokeball area:
+		la t0, CHAR_POS
+		lh t1, 0(t0) # x
+		lh t2, 2(t0) # y 
+
+		# y == 84 -> correct y
+		# 112 <= x <= 192 -> correct x
+		li t3, 84
+		bne t2, t3, NPSMS # if y not correct, not correct position
+		li t3, 112
+		blt t1, t3, NPSMS # if x < 112 -> not correct position
+		li t3, 192
+		bgt t1, t3, NPSMS  # if x > 192 -> not correct position
+		#  CORRECT POSITION
+			# SELECT POKEMON:
+			# PRINT menu with pokemon index of that position
+			# index of pokemon based on x -> 112 = 0, 1
+			li a0, 112
+			call GET_POKEMON_INDEX_SELECTION
+			call POKEMON_SELECT_MENU
+		call PRINT_CURRENT_MAP
+		j SAEND
+NPSMS:
+# NOT POKEMON SELECTION MAP SELECTION
+
+
+SAEND:
+lw ra, 0(sp)
+addi sp, sp, 4
+ret
+
+
+
+
+
+
 CHAR_ESQ:
 	# right colision = current map data + 2 
 
