@@ -40,7 +40,7 @@ GAME_LOOP:
 		li a3, 1
 		call PRINT
 		call UPDATE_CHAR_POS
-        li a0, 1000
+        li a0, 500
 		call SLEEP
         # call START_BATTLE
 
