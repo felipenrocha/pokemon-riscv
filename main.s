@@ -4,11 +4,11 @@
 .text
 
 
-# call  MENU
+call  MENU
 
 
-# #  inicio do jogo
-# call INICIO_JOGO	
+#  inicio do jogo
+call INICIO_JOGO	
 
 
 li a0, 1000
