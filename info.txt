@@ -17,7 +17,7 @@ inventory: .half, quantity of items, index_item0, index_item1
 item: .half, index_item, amount to raise hp
 
 background data: .half index_map, left colision, right colision, top colision, bottom colision, right colision,
-number of teleports, position teleport 1 x,position teleport 1 y, index of map tp'd
+number of teleports, position teleport 1 x,position teleport 1 y, index of map tp'd, x to be tpd in next map and y to be tpd in next map
 
 #types list:
 # 0: normal

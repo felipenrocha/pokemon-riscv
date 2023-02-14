@@ -54,7 +54,7 @@ CHECK_TELEPORT:
 
 # change this loop
     #  in position a0 + 12 we have the amount of tps in current map, this will limit  our counter
-    addi a0, a0, 12
+    addi a0, a0, 10
     lh t1, 0(a0) # t1 = amount of tps in current map
     li t6, 0 # counter
     addi a0, a0, 2 # a0=[0] = first tp
@@ -74,11 +74,22 @@ CTP0:
     la t0, CURRENT_MAP
     lb t1, 4(a0)
     sb t1, 0(t0)
+
+    # set new x, y in char pos:
+    la t0, CHAR_POS
+    lh t1, 6(a0) # x 
+    sh t1, 0(t0)
+
+    lh t1, 8(a0) # y
+    sh t1, 2(t0) 
+
+
     #  return true
+
     li a0, 1
     j END_TELEPORT
 NCTP0:
-    addi a0, a0, 6 # jump to next tp adress
+    addi a0, a0, 10 # jump to next tp adress
     addi t6, t6, 1 # increase counter
     j CTP0
 

@@ -31,6 +31,8 @@ GAME_LOOP:
 	beq a0, zero, NO_TELEPORT 
 	# teleport case:
 		call CLS
+        li a0, 500
+		call SLEEP
 
 		call GET_MAP_ADRESS #a0 = current map adress
 		li a1, 0
@@ -39,11 +41,6 @@ GAME_LOOP:
 		call PRINT
 		li a3, 1
 		call PRINT
-		call UPDATE_CHAR_POS
-        li a0, 500
-		call SLEEP
-        # call START_BATTLE
-
 
 NO_TELEPORT:
 	# load current frame of character set it to a0:	
