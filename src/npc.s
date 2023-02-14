@@ -1,5 +1,7 @@
 .data
 .include "../sprites/characters/gym1npc.s"s
+.include "../sprites/characters/gym2npc.s"s
+
 current_npc: .half 0
 checkpoint: .half 0
 NPC0STR1: .ascii "Come back when you have"
@@ -30,6 +32,12 @@ GET_NPC_IMAGE_ADRESS:
     la a0, gym1npc
     ret
 GNPIA0:
+    addi t0, t0, 1
+    bne t0, a0, GNPIA1
+    la a0, gym2npc
+    ret
+
+GNPIA1:
     la a0, gym1npc
     ret
 
@@ -94,7 +102,7 @@ SGYM2APS:
     lh a0, 0(t0)
     call GET_NPC_0_STR
     call PRINTBOX
-    SGYM1LOOP:
+SGYM1LOOP:
     call KEYNPCMENU
     li t0, 5
 	beq t0, a0, SGYM1END

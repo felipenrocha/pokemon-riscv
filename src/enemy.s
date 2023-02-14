@@ -1,5 +1,7 @@
 .data
 .include "../data/enemy0.s"
+.include "../data/enemy1.s"
+
 
 .text
 
@@ -11,6 +13,11 @@ GET_ENEMY_DATA:
         la a0, enemy0
         ret
 GED0:
+    addi t0, t0, 1
+    bne a0, t0, GED1
+    la a0, enemy1
+    ret
+GED1:
     la a0, enemy0
     ret
 
@@ -82,9 +89,6 @@ SPCL:
     addi a0, a0, 2
     lh t0, 0(a0)
     
-    mv a0, t0
-    li a7, 1
-    ecall
 
     # FOund next index
     # a0 = adress of index 

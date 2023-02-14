@@ -142,9 +142,31 @@ NPSMS:
 	call START_GYM_1
 	call PRINT_CURRENT_MAP
 
-
+	j SAEND
 
 NGYM1S:
+# NOT GYM ONE
+# check if its gym 2:
+	call IS_GYM_TWO # a0 == boolean if current maps is GYM 2
+
+	beq a0, zero, NGYM2S
+	# check if current position is equal to the npc's area (148x96)
+
+	la t0, CHAR_POS
+	lh t1, 0(t0) # x
+	lh t2, 2(t0) # y 
+	li t3, 148
+	bne t1, t3, NGYM2S # if y not correct, not correct position
+	li t3, 96
+	bne t2, t3, NGYM2S # if x not correct, not correct position position
+	# this means correct position
+	# START EVENT BATTLE GYM 1
+	call START_GYM_2
+	call PRINT_CURRENT_MAP
+	# GYM 2, check position
+	j SAEND
+NGYM2S:
+
 SAEND:
 lw ra, 0(sp)
 addi sp, sp, 4

@@ -319,8 +319,6 @@ CPDT:
 
 CPDE:
 # CHECK_POKEMON_DEAD END
-    li a7, 1
-    ecall
 
     lw ra, 0(sp)
     addi sp, sp, 4
@@ -403,8 +401,7 @@ GET_POKEMON_INDEX_SELECTION:
     la t0, selectionlist
     add t0, t0, t1 # new adress added to index
     lh a0, 0(t0) 
-    li a7, 1
-    ecall
+
 GPISEND:    
     ret
 

@@ -297,9 +297,6 @@ PRINTITEMS:
     lh s1, 0(s0)
     addi s0, s0, 2 # t0 = adress of item 0 on inventory
     
-    mv a0, s1
-    li a7, 1
-    ecall
 
     # t1 == number of items (in our case: 2)
     li s2, 0 # t2 == counter

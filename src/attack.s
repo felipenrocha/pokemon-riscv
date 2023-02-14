@@ -181,13 +181,17 @@ ENEMY_DIED:
 
 
     la t0, current_enemy
-    lh t1, 0(t0)
+    lh a0, 0(t0)
     call GET_ENEMY_DATA
     lh t1, 0(a0)
     addi t1, t1, -1
     sh t1, 0(a0)
     #  call print enemy fainted
-    la t0, current_enemy_pokemon
+    mv a0, t1
+    li a7, 1
+
+    ecall
+        la t0, current_enemy_pokemon
         lh a0, 0(t0)
         call PRINT_DEAD_POKEMON_STR
     # check if theres remaining enemy pokemons
@@ -263,9 +267,7 @@ FIM_ATTACK_MENU:
         call PRINT_ENEMY_BAR
         call PRINTMOVESMENU
 
-    la a0, debug
-    li a7, 4
-    ecall
+
         li a5, 5
         lw ra, 8(sp)
         addi sp, sp, 12

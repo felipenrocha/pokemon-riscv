@@ -5,15 +5,16 @@
 
 
 
-call  MENU
+# call  MENU
 
 
-# #  inicio do jogo
-call INICIO_JOGO	
+# # #  inicio do jogo
+# call INICIO_JOGO	
 
 
-li a0, 1000
-call SLEEP 
+# li a0, 1000
+# call SLEEP 
+
 la t0, CURRENT_MAP
 sb zero, 0(t0)
 # set initial map to city
@@ -29,6 +30,7 @@ ecall
 .include "src/switch.s"
 .include "src/game_loop.s"
 .include "src/npc.s"
+.include "src/gym2.s"
 
 .include "src/textbox.s"
 .include "src/animation.s"
