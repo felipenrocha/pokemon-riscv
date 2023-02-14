@@ -185,11 +185,6 @@ PULA_MSG_2:
     ret
 PULA_MSG_3:
     addi t2, t2, 1
-    bne t1, t2, PULA_MSG_3
-    la a0, msg3
-    ret
-PULA_MSG_3:
-    addi t2, t2, 1
     bne t1, t2, PULA_MSG_4
     la a0, msg4
     ret

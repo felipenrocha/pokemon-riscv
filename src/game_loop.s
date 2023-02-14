@@ -14,8 +14,7 @@ SETUP:
 	# set current map = city
 	la t0, CURRENT_MAP
 	sb zero, 0(t0)
-	call GET_MAP_ADRESS
-	call PRINT_BACKGROUND
+	call PRINT_CURRENT_MAP
 
 GAME_LOOP:
 
@@ -30,18 +29,11 @@ GAME_LOOP:
 	# check if teleport occurred to change the background
 	beq a0, zero, NO_TELEPORT 
 	# teleport case:
-		call CLS
-        li a0, 500
-		call SLEEP
-
-		call GET_MAP_ADRESS #a0 = current map adress
-		li a1, 0
-		li a2, 0
-		li a3, 0
-		call PRINT
-		li a3, 1
-		call PRINT
-
+		# call CLS
+        # li a0, 500
+		# call SLEEP
+	call PRINT_CURRENT_MAP
+	
 NO_TELEPORT:
 	# load current frame of character set it to a0:	
 

@@ -6,7 +6,12 @@
 - [] Add NPC'S.
 - [] Check if player is in NPC place.
 - [] Setup NPC as current enemy.
-- [] Pokemon selection.
+- [] Pokemon selection:
+    - [x] Check if current map is pokemon selection
+    - [] Print 6 Pokeballs
+    - [] 'Z' keypool for this map
+    - [] Menu for selection (with sprite)
+    - [] Select pokemon and update heropokemons
 
 
 ### sprint 0 (BATTLE SYSTEM) (SPRINT FINISHED):

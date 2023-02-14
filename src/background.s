@@ -135,6 +135,66 @@ UPDATE_CHAR_POS:
 ret
 
 
+PRINT_CURRENT_MAP:
+    addi sp, sp, 4
+    sw ra, 0(sp)
+
+        call GET_MAP_ADRESS #a0 = current map adress
+		li a1, 0
+		li a2, 0
+		li a3, 0
+		call PRINT
+		li a3, 1
+		call PRINT
+
+    #  check if its the pokemon selection map to print the pokeballs
+    # # if map is pokemon selection  -> print 6 pokeballs
+    call IS_POKEMON_SELECTION
+    # li a0, 0
+    # a0 == boolean
+    beq a0, zero, PCMNPS
+        #pokemon seleciton case
+        # PRINT 6 POKEBALLS
+        li s2, 0 # counters
+        li s1, 6 # counters
+        li a1, 112
+        li a2, 64
+    IPSLOOP:
+        beq s2, s1, PCMPS0
+            la a0, pokeball
+            li a3, 0
+            call PRINT 
+            li a3, 1
+            call PRINT
+            addi a1, a1, 16
+            addi s2, s2, 1
+            j IPSLOOP
+    PCMPS0:
+        j PCMEND
+PCMNPS:
+#print current map not pokemon selection
+
+PCMEND:
+    lw ra, 0(sp)
+    addi sp, sp, 4
+    ret
+
+
+IS_POKEMON_SELECTION:
+# returns if current map is the pokemon selection one
+    la t0, CURRENT_MAP
+    lb t1, 0(t0) 
+    ## if t1 == 1 -> true: else: false
+    li t2, 1
+    bne t1, t2, IPSF
+    # true:
+    li a0, 1
+    ret
+IPSF:
+    #is pokemon selection false case
+    li a0, 0
+    ret
+
 
 CLS:	
 	li a0,0x00
@@ -143,15 +203,16 @@ CLS:
 	ecall
 	ret
 
-    
+
+
+
+
 .data
 
 
 .include "../sprites/backgrounds/city.s"
 .include "../sprites/backgrounds/citydata.s"
-
-.include "../sprites/backgrounds/h1f.s"
-# .include "animation.s"
-.include "../sprites/backgrounds/h1fdata.s"
 .include "../sprites/backgrounds/lab.s"
 .include "../sprites/backgrounds/labdata.s"
+
+.include "../sprites/misc/pokeball.s"
