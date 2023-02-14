@@ -134,9 +134,8 @@ UPDATE_CHAR_POS:
 
 ret
 
-
 PRINT_CURRENT_MAP:
-    addi sp, sp, 4
+    addi sp, sp, -4
     sw ra, 0(sp)
 
         call GET_MAP_ADRESS #a0 = current map adress
@@ -155,21 +154,7 @@ PRINT_CURRENT_MAP:
     beq a0, zero, PCMNPS
         #pokemon seleciton case
         # PRINT 6 POKEBALLS
-        li s2, 0 # counters
-        li s1, 6 # counters
-        li a1, 112
-        li a2, 64
-    IPSLOOP:
-        beq s2, s1, PCMPS0
-            la a0, pokeball
-            li a3, 0
-            call PRINT 
-            li a3, 1
-            call PRINT
-            addi a1, a1, 16
-            addi s2, s2, 1
-            j IPSLOOP
-    PCMPS0:
+        call PRINT_POKEBALLS
         j PCMEND
 PCMNPS:
 #print current map not pokemon selection
@@ -195,6 +180,28 @@ IPSF:
     li a0, 0
     ret
 
+PRINT_POKEBALLS:
+    addi sp, sp, -4
+    sw ra, 0(sp)
+    li s2, 0 # counters
+        li s1, 6 # counters
+        li a1, 112
+        li a2, 64
+    IPSLOOP:
+        beq s2, s1, PCMPS0
+            la a0, pokeball
+            li a3, 0
+            call PRINT 
+            li a3, 1
+            call PRINT
+            addi a1, a1, 16
+            addi s2, s2, 1
+            j IPSLOOP
+    PCMPS0:
+    lw ra, 0(sp)
+    addi sp, sp, 4
+    ret
+
 
 CLS:	
 	li a0,0x00
@@ -208,11 +215,8 @@ CLS:
 
 
 .data
-
-
 .include "../sprites/backgrounds/city.s"
 .include "../sprites/backgrounds/citydata.s"
 .include "../sprites/backgrounds/lab.s"
 .include "../sprites/backgrounds/labdata.s"
-
 .include "../sprites/misc/pokeball.s"

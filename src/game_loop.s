@@ -22,19 +22,20 @@ GAME_LOOP:
 	call KEY2
 	xori s10, s10, 1
 	#a0 needs to be the data of current map so we can teleport it or check if its in right position:
-	call GET_DATA_FROM_MAP
-	# check if player needs to tp
-	call CHECK_TELEPORT
+		call GET_DATA_FROM_MAP
+		# check if player needs to tp
+		call CHECK_TELEPORT
 	#a0 = boolean if player is in position
 	# check if teleport occurred to change the background
-	beq a0, zero, NO_TELEPORT 
-	# teleport case:
-		# call CLS
-        # li a0, 500
-		# call SLEEP
-	call PRINT_CURRENT_MAP
-	
-NO_TELEPORT:
+		beq a0, zero, NO_TELEPORT 
+		# teleport case:
+			call CLS
+			li a0, 500
+			call SLEEP
+			call PRINT_CURRENT_MAP
+
+
+	NO_TELEPORT:
 	# load current frame of character set it to a0:	
 
 	# print last square of characters based on current map (32x32)
@@ -55,7 +56,7 @@ NO_TELEPORT:
 	li t0,0xFF200604
 	sw s0, 0(t0)
 	
-	j GAME_LOOP
+j GAME_LOOP
 
 
 END_GAME_LOOP:
