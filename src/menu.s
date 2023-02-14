@@ -221,17 +221,14 @@ SLPONF0:
 	
 SLPONF:
  	# TODO: play sound:
-
 	# now we update the heropokemons data-> 
 	mv a0, s9
 	call SET_NEW_POKEMON
 
-# print first pokemon for debug
-la t0, heropokemons
-lh t1, 2(t0)
-mv a0, t1
-li a7, 1
-ecall
+	# print first pokemon for debug
+	la t0, heropokemons
+	lh t1, 2(t0)
+
 
 	la a0, pokemonselectstr2
 	call PRINTBOX
@@ -242,11 +239,13 @@ ecall
 	call PRINTBOX
 	li a0, 750
 	call SLEEP
+	call PLAY_ITEM_FOUND
 
 
 
 
 SELECT_POKEMON_OPTION_END:
+
 	lw ra, 0(sp)
 	addi, sp, sp,4
 	li a0, 5
