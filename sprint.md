@@ -3,11 +3,14 @@
 - [x] Intro Song.
 - [x] Select SFX.
 - [x] Begining Story.
-- [] Setup Gym:
-    - [ ] Print Map/ TP to map;
-    - [] Print NPC;
-    - [] 'Z' press in npc;
-    - [] Check if all pokemons are selected;
+- [x] Setup Gym 1:
+    - [x] Print Map/ TP to map;
+    - [x] Print NPC;
+    - [x] 'Z' press in npc;
+    - [x] Check if all pokemons are selected;
+    - [x] Check if gym was already defeated.
+- [x] Changed how to end battle (its ugly but works)
+- [x] Added Checkpoint variable to keep track of gyms defeated.
 - [] End Game
 - [x] Pokemon selection:
     - [x] Check if current map is pokemon selection
@@ -65,6 +68,8 @@
 
 
 
-<!-- TODO ADD NEW POKEMONS -->
+<!-- TODO ADD NEW POKEMONS (DONE) -->
 
-<!-- todo: new pokemon fx -->
+<!-- todo: new pokemon fx (pokemon selected and battle won)-->
+<!-- todo: change raticate for a grass pokemon. -->
+
