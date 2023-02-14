@@ -12,8 +12,8 @@
 - [x] Changed how to end battle (its ugly but works)
 - [x] Added Checkpoint variable to keep track of gyms defeated.
 - [x] Setup Gym 2
-- [] Setup Gym 3
-- [] End Game
+- [x] Setup Gym 3
+- [x] End Game
 - [x] Pokemon selection:
     - [x] Check if current map is pokemon selection
     - [x] Print 6 Pokeballs

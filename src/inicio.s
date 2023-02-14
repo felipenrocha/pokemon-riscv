@@ -32,6 +32,15 @@ msg13b:.byte 0
 msg14: .ascii "Your pokemons faint at 2HP\n"
 msg14b:.byte 0
 msg15: .ascii "Good Luck!!!!\n"
+msg15b:.byte 0
+msg16: .ascii "You've Beaten the Game!\n"
+
+msg16b:.byte 0
+msg17: .ascii "Congratulations! \n"
+
+msg17b:.byte 0
+msg18: .ascii "Here is your cookie:\n"
+
 
 
 
@@ -248,3 +257,65 @@ PULA_MSG_15:
     la a0, msg0
     ret
 
+
+
+END_GAME: 
+# game beaten
+
+
+    # print bg
+    la a0, oakbg
+	li a1, 0
+	li a2, 0
+	li a3, 0
+	call PRINT # print base
+	li a3, 1
+	call PRINT  # print base
+
+
+
+	# print oak with base:
+	la a0, baseround
+	li a1, 152
+	li a2, 136
+	li a3, 0
+	call PRINT # print base
+	li a3, 1
+	call PRINT  # print base
+
+	# print oak
+	la a0, oak_full
+	li a1, 160
+	li a2, 64
+	li a3, 0
+	call PRINT # print base
+	li a3, 1
+	call PRINT  # print base
+
+    la a0, msg16
+    call PRINTBOX
+    li a0, 1000
+    call SLEEP
+
+    li a0, 1000
+    call SLEEP
+    call PLAY_SELECT
+    la a0, msg17
+    call PRINTBOX
+    li a0, 1000
+    call SLEEP
+    li a0, 1000
+    call SLEEP
+    call PLAY_SELECT
+
+    la a0, msg18
+    call PRINTBOX
+    li a0, 1000
+    call SLEEP
+    li a0, 1000
+    call SLEEP
+    call PLAY_SELECT
+
+
+li a7, 10
+ecall

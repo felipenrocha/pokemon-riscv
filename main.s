@@ -7,12 +7,12 @@
 # call  MENU
 
 
-# # #  inicio do jogo
+# #  inicio do jogo
 # call INICIO_JOGO	
 
 
-# li a0, 1000
-# call SLEEP 
+li a0, 1000
+call SLEEP 
 
 la t0, CURRENT_MAP
 sb zero, 0(t0)

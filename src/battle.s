@@ -482,13 +482,16 @@ WIN_BATTLE:
     lh t1,0(t0)
     addi t1, t1, 1
     sh t1, 0(t0)
-
+    li t2, 3
+    bge t1, t2, END_GAME
 
     la a0, winstr
     call PRINTBOX
     li a0, 1000
     call SLEEP
     li a0, 5
+
+
     j END_START_BATTLE
 
 
