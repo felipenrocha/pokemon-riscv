@@ -3,7 +3,11 @@
 - [x] Intro Song.
 - [x] Select SFX.
 - [x] Begining Story.
-- [] Setup Gym's
+- [] Setup Gym:
+    - [ ] Print Map/ TP to map;
+    - [] Print NPC;
+    - [] 'Z' press in npc;
+    - [] Check if all pokemons are selected;
 - [] End Game
 - [x] Pokemon selection:
     - [x] Check if current map is pokemon selection

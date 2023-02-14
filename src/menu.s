@@ -34,7 +34,7 @@ MENU:
 		call PRINT
 		li a3, 1
 		call PRINT
-		# call PLAY_INTRO
+		call PLAY_INTRO
 		mv s0, ra
 MENU_LOOP:
 		

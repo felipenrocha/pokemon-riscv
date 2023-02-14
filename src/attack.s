@@ -201,7 +201,9 @@ ENEMY_DIED:
     # not 0 -> switch to next pokemon
     call SWITCH_POKEMON_ENEMY
     #  redraw enemy pokemon
+    
     call SETUP_BATTLE
+    li a0, 5
     j FIM_ATTACK_MENU
 
 
@@ -219,7 +221,9 @@ ENEMY_NOT_DEAD:
 
     # ia attack goes here
     call IA_ATTACK
-   
+
+
+
     la t0, current_friendly_pokemon
     lh a0, 0(t0)
     call CHECK_POKEMON_DEAD
@@ -232,7 +236,9 @@ ENEMY_NOT_DEAD:
     # a0 boolean if player has pokemons still
     ## if all pokemons are dead, end battle 
     beq a0, zero, LOSE_BATTLE  
-    
+
+
+
     lw a0, 0(sp)
     addi sp, sp, 4
     #  a0 == boolean if pokemon died:
@@ -247,6 +253,7 @@ ENEMY_NOT_DEAD:
         call POKEMON_SWITCH_MENU
 
 PSNW:
+
 #  no need for pokemon switch
 
 FIM_ATTACK_MENU:
@@ -254,7 +261,11 @@ FIM_ATTACK_MENU:
         #  reprint moves when shits over
         call PRINT_BLACK_ENEMY_BAR
         call PRINT_ENEMY_BAR
-        call PRINT_BACK_MENU
+        call PRINTMOVESMENU
+
+    la a0, debug
+    li a7, 4
+    ecall
         li a5, 5
         lw ra, 8(sp)
         addi sp, sp, 12

@@ -465,3 +465,9 @@ lh t1, 0(t0) # amount of pokemons already, well push the new pokemon at index:
     addi t1, t1, 1
     sh t1, 0(t0)
 ret
+
+
+HEAL_POKEMONS:
+    # VOID TO HEAL ALL POKEMONS OF PARTY
+
+        ret

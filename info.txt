@@ -62,3 +62,15 @@ selectionlist: .half index 0, index 1, .;..
 # 1 = top right (bag)
 # 2 = bottom right (pokemon)
 # 3 = bottom left (run)
+
+
+#maps:
+# 0 citydata
+# 1 oak lab
+# 2 gym 1
+# 3 gym 2
+# 4 gym 4
+
+#npcs
+
+# 0 gym 1 npc

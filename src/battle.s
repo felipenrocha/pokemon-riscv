@@ -20,6 +20,26 @@ START_BATTLE:
     la t0, END_BATTLE_RA
     sw ra, 0(t0)
 
+
+    # set current pokemon to be first on heropokeons and current enemy pokemon to be first on enemy pokemon
+    la t0, heropokemons
+    addi t0, t0, 2
+    lh t1, 0(t0)
+    la t0, current_friendly_pokemon
+    sh t1, 0(t0)
+
+    la t0, current_enemy
+    lh a0, 0(t0) # a0 = index of current enemy
+    call GET_ENEMY_DATA # a0 = adress of current enemy data
+    # first pokemon = a + 2
+    addi a0, a0, 2
+    # a0 = adress of first pokemon
+    lh t1, 0(a0) # index of pokemon
+    # store it in current_enemy pokemon
+    la t0, current_enemy_pokemon
+    sh t1, 0(t0)
+
+
     #do stuff here
     # SETUP B
     call SETUP_BATTLE
@@ -32,6 +52,8 @@ BATTLELOOP:
 #  print a square on the current option:
 # we'll use a byte to identify on which option the player is
     call KEYBATTLE
+    li t0, 5
+    beq a0, t0, END_START_BATTLE
     # 
     # 
     beq a0, zero, NKPB
@@ -54,13 +76,17 @@ j BATTLELOOP
 
 #end battle:
 END_START_BATTLE:
+#restart game
+# HEALL ALL POKEMONS  
+    call CLS
 
 
-    # lw ra, 0(sp)
-    addi sp, sp, 4
-    la t0, END_BATTLE_RA
-    lw ra, 0(t0)
-    ret
+    call HEAL_POKEMONS
+    call START_GAME
+
+
+
+
 
 
 
@@ -173,6 +199,9 @@ KEYBATTLE:
 
         li t0,'z'
 		beq t2,t0,SELECT_OPTION_MENU_BATTLE	
+
+        li t0, 'x'
+		beq t2,t0,END_START_BATTLE	
         
 		
 FIM_MENU_BATTLE:
@@ -231,8 +260,12 @@ SELECT_OPTION_MENU_BATTLE:
 
     addi sp, sp -4
     sw ra, 0(sp)
+
+
 	call PLAY_SELECT
     call ATTACK_MENU
+    li a0, 0
+
     lw ra, 0(sp)
     addi sp, sp, 4
     ret
@@ -444,10 +477,18 @@ call PRINT_HP_BAR
 
 WIN_BATTLE:
     #  print = you won the battle, and exit
+    # increase checkpoint mark
+    la t0, checkpoint
+    lh t1,0(t0)
+    addi t1, t1, 1
+    sh t1, 0(t0)
+
+
     la a0, winstr
     call PRINTBOX
     li a0, 1000
     call SLEEP
+    li a0, 5
     j END_START_BATTLE
 
 
@@ -457,6 +498,8 @@ LOSE_BATTLE:
     call PRINTBOX
     li a0, 1000
     call SLEEP
+    li a7, 10
+    ecall
     j END_START_BATTLE
 
 

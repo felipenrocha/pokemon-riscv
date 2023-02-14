@@ -3,17 +3,20 @@
 
 .text
 
-# call START_BATTLE
 
-# call  MENU
+
+call  MENU
 
 
 # #  inicio do jogo
-# call INICIO_JOGO	
+call INICIO_JOGO	
 
 
-# li a0, 1000
-# call SLEEP 
+li a0, 1000
+call SLEEP 
+la t0, CURRENT_MAP
+sb zero, 0(t0)
+# set initial map to city
 call START_GAME
 
 
@@ -25,6 +28,7 @@ ecall
 .data
 .include "src/switch.s"
 .include "src/game_loop.s"
+.include "src/npc.s"
 
 .include "src/textbox.s"
 .include "src/animation.s"

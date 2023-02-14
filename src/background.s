@@ -15,7 +15,8 @@ GET_DATA_FROM_MAP:
     beq t1, zero, DATA_MAP_0
     li t2, 1
     beq t1, t2, DATA_MAP_1
-
+    addi t2, t2, 1
+    beq t1, t2, DATA_MAP_2
 
 DATA_MAP_0:
     la a0, citydata
@@ -24,6 +25,10 @@ DATA_MAP_0:
 DATA_MAP_1:
     la a0, labdata
     ret
+DATA_MAP_2:
+    la a0, gym1data
+    ret
+
 
 GET_MAP_ADRESS:
     # return adress of current map (image)
@@ -35,13 +40,18 @@ GET_MAP_ADRESS:
     beq t1, zero, MAP_0
     li t2, 1
     beq t1, t2, MAP_1
-
+    addi t2, t2, 1
+    beq t1, t2, MAP_2
 
 MAP_0:
     la a0, city
     ret
 MAP_1:
     la a0, lab
+    ret
+
+MAP_2:
+    la a0, gym1
     ret
 
 CHECK_TELEPORT:
@@ -159,6 +169,22 @@ PRINT_CURRENT_MAP:
 PCMNPS:
 #print current map not pokemon selection
 
+    # check if its gym 1 map:
+    call IS_GYM_ONE
+    # a0 = boolean if its gym one
+    beq a0, zero, PCMNGYM1
+        # current npc == gym 1 npc
+        la t0, current_npc
+        li t1, 0 # index of gym 1 npc
+        sh t1, 0(t0) # save
+
+        # print npc
+        call PRINT_NPC
+
+
+    j PCMEND
+PCMNGYM1:
+
 PCMEND:
     lw ra, 0(sp)
     addi sp, sp, 4
@@ -179,6 +205,25 @@ IPSF:
     #is pokemon selection false case
     li a0, 0
     ret
+
+
+
+
+
+IS_GYM_ONE:
+    la t0, CURRENT_MAP
+    lb t1, 0(t0) 
+    ## if t1 == 2 -> true: else: false
+    li t2, 2
+    bne t1, t2, IGYM1F
+    # true:
+    li a0, 1
+    ret
+IGYM1F:
+    #GYM 1  false case
+    li a0, 0
+    ret
+
 
 PRINT_POKEBALLS:
     addi sp, sp, -4
@@ -215,6 +260,8 @@ CLS:
 
 
 .data
+.include "../sprites/backgrounds/gym1.s"
+.include "../sprites/backgrounds/gym1data.s"
 .include "../sprites/backgrounds/city.s"
 .include "../sprites/backgrounds/citydata.s"
 .include "../sprites/backgrounds/lab.s"

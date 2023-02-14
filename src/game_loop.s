@@ -7,14 +7,7 @@ START_GAME:
     addi sp, sp, -4
     sw ra, 0(sp)
     mv s10, zero
-
-
-SETUP:
-	mv s0, zero
-	# set current map = city
-	la t0, CURRENT_MAP
-	sb zero, 0(t0)
-	call PRINT_CURRENT_MAP
+	call SETUP
 
 GAME_LOOP:
 
@@ -63,3 +56,15 @@ END_GAME_LOOP:
     lw ra, 0(sp)
     addi sp, sp, 4
     ret
+
+
+
+
+SETUP:
+addi sp,sp,-4
+sw ra, 0(sp)
+	mv s0, zero
+	call PRINT_CURRENT_MAP
+lw ra, 0(sp)
+addi sp, sp, 4
+ret
