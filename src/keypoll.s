@@ -166,6 +166,28 @@ NGYM1S:
 	# GYM 2, check position
 	j SAEND
 NGYM2S:
+# NOT GYM 2
+# check if its gym 3:
+	call IS_GYM_THREE # a0 == boolean if current maps is GYM 3
+
+	beq a0, zero, NGYM2S
+	# check if current position is equal to the npc's area (148x96)
+
+	la t0, CHAR_POS
+	lh t1, 0(t0) # x
+	lh t2, 2(t0) # y 
+	li t3, 148
+	bne t1, t3, NGYM3S # if y not correct, not correct position
+	li t3, 96
+	bne t2, t3, NGYM3S # if x not correct, not correct position position
+	# this means correct position
+	# START EVENT BATTLE GYM 1
+	call START_GYM_3
+	call PRINT_CURRENT_MAP
+	# GYM 2, check position
+	j SAEND
+
+NGYM3S:
 
 SAEND:
 lw ra, 0(sp)

@@ -5,7 +5,7 @@
 
 
 current_npc: .half 0
-checkpoint: .half 0
+checkpoint: .half 2
 NPC0STR1: .ascii "Come back when you have"
 NPC0SSTR1: .byte 0
 NPC0STR2: .ascii "All your pokemons!"
@@ -228,3 +228,58 @@ SELECT_KEY_NPC_MENU_END:
 lw ra, 0(sp)
 addi sp, sp, 4
 ret
+
+
+
+
+GET_NPC_2_STR:
+    # A0 = CURRENT inde
+    li t0, 1
+    bne a0, t0, GN2S1
+    la a0, NPC2STR1
+    ret
+GN2S1:
+    addi t0, t0, 1
+    bne a0, t0, GN2S2
+    la a0, NPC2STR2
+    ret
+GN2S2:
+    addi t0, t0, 1
+    bne a0, t0, GN2S3
+    la a0, NPC2STR3
+    ret
+GN2S3:
+    addi t0, t0, 1
+    bne a0, t0, GN2S4
+    la a0, NPC2STR4
+    ret
+GN2S4:
+    addi t0, t0, 1
+    bne a0, t0, GN2S5
+    la a0, NPC2STR5
+    ret
+GN2S5:
+    addi t0, t0, 1
+    bne a0, t0, GN2S6
+    la a0, NPC2STR6
+    ret
+GN2S6:
+    addi t0, t0, 1
+    bne a0, t0, GN2S7
+    la a0, NPC2STR7
+    ret
+GN2S7:
+    addi t0, t0, 1
+    bne a0, t0, GN2S8
+    la a0, NPC2STR8
+    ret
+GN2S8:
+    addi t0, t0, 1
+    bne a0, t0, GN2S9
+    la a0, NPC2STR9
+    ret
+GN2S9:
+    la a0, NPC1STR1
+    ret
+
+

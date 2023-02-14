@@ -1,6 +1,7 @@
 .data
 .include "../data/enemy0.s"
 .include "../data/enemy1.s"
+.include "../data/enemy2.s"
 
 
 .text
@@ -18,6 +19,11 @@ GED0:
     la a0, enemy1
     ret
 GED1:
+    addi t0, t0, 1
+    bne a0, t0, GED2
+    la a0, enemy2
+    ret
+GED2:
     la a0, enemy0
     ret
 
