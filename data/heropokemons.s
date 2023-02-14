@@ -1,1 +1,1 @@
-heropokemons: .half 0,-1,-1,-1
+heropokemons: .half 3,0,2,4

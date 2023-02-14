@@ -465,6 +465,25 @@ ret
 
 
 HEAL_POKEMONS:
-    # VOID TO HEAL ALL POKEMONS OF PARTY
+    addi sp, sp, -4
+    sw ra, 0(sp)
 
-        ret
+    # get current pokemons and set each current hp to total hp
+    la s3, heropokemons 
+    lh s4, 0(s3) # s4 = total pokemons
+    li s5, 0  #s5 = counter
+    addi s3, s3, 2 # s3= adress of index of first pokemon
+    HPLOOP:
+    beq s4, s5, HPOUT
+    lh a0, 0(s3)
+    call GET_CURRENT_POKEMON_DATA
+    lh t0, 4(a0) # position of total hp
+    sh t0, 2(a0) # position of current hp
+    addi s5, s5, 1 # i += 1
+    addi s3,s3,2 # next index
+    
+    j HPLOOP
+ HPOUT:
+    lw ra, 0(sp)
+    addi sp, sp, 4
+    ret

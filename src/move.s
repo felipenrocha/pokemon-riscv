@@ -155,6 +155,46 @@ GMDA3:
     la a0, move4
     ret
 GMDA4:
+    addi t1, t1, 1
+    bne t0, t1, GMDA5
+    la a0, move5
+    ret
+GMDA5:
+    addi t1, t1, 1
+    bne t0, t1, GMDA6
+    la a0, move6
+    ret
+GMDA6:
+    addi t1, t1, 1
+    bne t0, t1, GMDA7
+    la a0, move7
+    ret
+GMDA7:
+    addi t1, t1, 1
+    bne t0, t1, GMDA8
+    la a0, move8
+    ret
+GMDA8:
+    addi t1, t1, 1
+    bne t0, t1, GMDA9
+    la a0, move9
+    ret
+GMDA9:    
+    addi t1, t1, 1
+    bne t0, t1, GMDA10
+    la a0, move10
+    ret
+GMDA10:
+    addi t1, t1, 1
+    bne t0, t1, GMDA11
+    la a0, move11
+    ret
+GMDA11:
+    addi t1, t1, 1
+    bne t0, t1, GMDA12
+    la a0, move12
+    ret
+GMDA12:
 
 GMDADEFAULT:
     # defaul: tacle

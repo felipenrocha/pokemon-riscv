@@ -1,4 +1,4 @@
-Well store the pokemons stats and stuff as an array of data, ill write here whats the pattern
+We'll store the pokemons stats and stuff as an array of data, ill write here whats the pattern
 
 
 each pokemon will have an index: 0,1,2,3, dragonite will be index 0.
@@ -76,7 +76,7 @@ selectionlist: .half index 0, index 1, .;..
 # 1 oak lab
 # 2 gym 1
 # 3 gym 2
-# 4 gym 4
+# 4 gym 3
 
 #npcs
 

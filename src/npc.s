@@ -5,7 +5,7 @@
 
 
 current_npc: .half 0
-checkpoint: .half 0
+checkpoint: .half 1
 NPC0STR1: .ascii "Come back when you have"
 NPC0SSTR1: .byte 0
 NPC0STR2: .ascii "All your pokemons!"
