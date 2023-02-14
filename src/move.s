@@ -9,12 +9,39 @@ move3str: .ascii "F.Blast\n"
 .moveseparator3: .byte 0
 move4str: .ascii "S.Beam\n"
 .moveseparator4: .byte 0
+move5str: .ascii "B.Slam\n"
+.moveseparator5: .byte 0
+move6str: .ascii "D.Hit \n"
+.moveseparator6: .byte 0
+move7str: .ascii "Waterfall\n"
+.moveseparator7: .byte 0
+move8str: .ascii "B.Beam\n"
+.moveseparator8: .byte 0
+move9str: .ascii "Ember\n"
+.moveseparator9: .byte 0
+move10str: .ascii "F.Wheel\n"
+.moveseparator10: .byte 0
+move11str: .ascii "R.Leaf\n"
+.moveseparator11: .byte 0
+move12str: .ascii "L.Seed\n"
+.moveseparator12: .byte 0
+
 
 .include "../data/move0.s"
 .include "../data/move1.s"
 .include "../data/move2.s"
 .include "../data/move3.s"
 .include "../data/move4.s"
+.include "../data/move5.s"
+.include "../data/move6.s"
+.include "../data/move7.s"
+.include "../data/move8.s"
+.include "../data/move9.s"
+.include "../data/move10.s"
+.include "../data/move11.s"
+.include "../data/move12.s"
+
+
 
 
 
@@ -50,6 +77,46 @@ GMS3:
     la a0, move4str
     ret
 GMS4:
+    addi, t1, t1, 1
+    bne t0, t1, GMS5
+    la a0, move5str
+    ret
+GMS5:
+    addi, t1, t1, 1
+    bne t0, t1, GMS6
+    la a0, move6str
+    ret
+GMS6:
+    addi, t1, t1, 1
+    bne t0, t1, GMS7
+    la a0, move7str
+    ret
+GMS7:
+    addi, t1, t1, 1
+    bne t0, t1, GMS8
+    la a0, move8str
+    ret
+GMS8:
+    addi, t1, t1, 1
+    bne t0, t1, GMS9
+    la a0, move9str
+    ret
+GMS9:
+    addi, t1, t1, 1
+    bne t0, t1, GMS10
+    la a0, move10str
+    ret
+GMS10:
+    addi, t1, t1, 1
+    bne t0, t1, GMS11
+    la a0, move11str
+    ret
+GMS11:
+    addi, t1, t1, 1
+    bne t0, t1, GMS12
+    la a0, move12str
+    ret
+GMS12:
 GMSDEFAULT:
     # DEFAULT CASE: TAcklE
     la a0, move0str

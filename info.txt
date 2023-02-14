@@ -37,7 +37,14 @@ selectionlist: .half index 0, index 1, .;..
 # 2: aqua-tail
 # 3: fire blast
 # 4: solar beam
-
+# 5: Body slam
+#6: double hit
+#7 : waterfall
+#8: bubble beam
+#9: ember
+#10: flame wheel
+#11: razor leef
+#12: leech seed
 
 # pokemon list:
 # 0: dragonite  (dragon) (friendly only)

@@ -1,1 +1,1 @@
-move3: .half 3, 4, 60
+move3: .half 3, 4, 70
