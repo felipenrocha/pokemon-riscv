@@ -1,9 +1,21 @@
+
 .text
+
+
 
 START_GAME:
     addi sp, sp, -4
     sw ra, 0(sp)
     mv s10, zero
+
+
+SETUP:
+	mv s0, zero
+	# set current map = city
+	la t0, CURRENT_MAP
+	sb zero, 0(t0)
+	call GET_MAP_ADRESS
+	call PRINT_BACKGROUND
 
 GAME_LOOP:
 

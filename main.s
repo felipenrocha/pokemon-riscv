@@ -5,22 +5,16 @@
 
 # call START_BATTLE
 
-call  MENU
+# call  MENU
 
 
 # #  inicio do jogo
-call INICIO_JOGO	
+# call INICIO_JOGO	
 
 
-li a0, 1000
-call SLEEP 
-
-SETUP:
-	mv s0, zero
-	call GET_MAP_ADRESS
-	call PRINT_BACKGROUND
-
-    call START_GAME
+# li a0, 1000
+# call SLEEP 
+call START_GAME
 
 
 

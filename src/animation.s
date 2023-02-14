@@ -2,7 +2,7 @@
 # stores current direction for animation: 
 # 0: up, 1: left, 2: down, 3 right
 CURR_DIRECTION: .byte  1
-CHAR_POS:	.half 32,208			# x, y
+CHAR_POS:	.half 128,128			# x, y
 OLD_CHAR_POS:	.half 64,64	# x, y
 
 # store which frame od character where using on animation rn (1 , 2, or 3)
@@ -47,8 +47,8 @@ PRINT_LAST_POS:
     # t1 = x, t2 = y
     lh t1, 0(t0)
     lh t2, 2(t0)
-    li t4, 32
-    li t5, 32
+    li t4, 16
+    li t5, 16
 
 
 	# la a0, lab

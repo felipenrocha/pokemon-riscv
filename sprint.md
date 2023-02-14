@@ -1,10 +1,12 @@
 
 # SPRINT 1
-- [x] Intro Song
-- [x] Select SFX
-- [] Begining Story
-- [] Add NPC'S
-- [] Check if player is in NPC place
+- [x] Intro Song.
+- [x] Select SFX.
+- [x] Begining Story.
+- [] Add NPC'S.
+- [] Check if player is in NPC place.
+- [] Setup NPC as current enemy.
+- [] Pokemon selection.
 
 
 ### sprint 0 (BATTLE SYSTEM) (SPRINT FINISHED):

@@ -72,14 +72,26 @@ FIM:
 				
 	
 CHAR_ESQ:
+	# right colision = current map data + 2 
+
+	#  CHECA SE x >= colisao do mapa atual de baixo
+	addi sp, sp, -4
+	sw ra, 0(sp)
+	call GET_DATA_FROM_MAP
+	lw ra, 0(sp)
+	addi sp, sp, 4
+	# a0 = adress of map
+	addi a0, a0, 2
+	lh t4, 0(a0)
+
 	la t0, 	CHAR_POS
 	lh t1, 0(t0)			# carrega o x atual do personagem
 	lh t3, 2(t0)
 	la t2,OLD_CHAR_POS
 	sh t1, 0(t2)	
 	sh t3, 2(t2)
-	addi t1, t1, -32
-	ble t1, zero, PULA_COLISAO_ESQUERDA # if t1 < zerot1 then target
+	addi t1, t1, -16
+	ble t1, t4, PULA_COLISAO_ESQUERDA # if t1 < zerot1 then target
 	sh t1, 0(t0)    		# salva novo x em char_pos
 
 PULA_COLISAO_ESQUERDA:	
@@ -87,6 +99,19 @@ PULA_COLISAO_ESQUERDA:
 	ret
 	
 CHAR_DIR:
+	# right colision = current map data +4 
+
+	#  CHECA SE x >= colisao do mapa atual de baixo
+	addi sp, sp, -4
+	sw ra, 0(sp)
+	call GET_DATA_FROM_MAP
+	lw ra, 0(sp)
+	addi sp, sp, 4
+	# a0 = adress of map
+	addi a0, a0, 4
+	lh t4, 0(a0)
+
+
 	la t0, 	CHAR_POS
 	lh t1, 0(t0)			# carrega o x atual do personagem
 	lh t3, 2(t0)
@@ -97,8 +122,7 @@ CHAR_DIR:
 
 
 	# salva a posicao atual do personagem em OLD_CHAR_POS
-	addi t1, t1, 32 		# incrementa 16
-	li t4, 320
+	addi t1, t1, 16 		# incrementa 16
 	bge t1, t4, PULA_COLISAO_DIREITA 
 	sh t1, 0(t0)    		# salva novo x em char_pos
 PULA_COLISAO_DIREITA:	
@@ -107,6 +131,18 @@ PULA_COLISAO_DIREITA:
 	
 																																											
 CHAR_CIMA:
+	# top colision = current map data + 8
+
+	#  CHECA SE y >= colisao do mapa atual de baixo
+	addi sp, sp, -4
+	sw ra, 0(sp)
+	call GET_DATA_FROM_MAP
+	lw ra, 0(sp)
+	addi sp, sp, 4
+	# a0 = adress of map
+	addi a0, a0, 6
+	lh t4, 0(a0)
+
 	la t0,CHAR_POS
 	lh t1, 0(t0)			# carrega o x atual do personagem
 	lh t3, 2(t0)
@@ -116,15 +152,26 @@ CHAR_CIMA:
 	sh t3, 2(t2)	
 
 	lh t1, 2(t0)				# carrega y
-	addi t1,t1,-32				# decrementa 16 pixeis
+	addi t1,t1,-16				# decrementa 16 pixeis
 
-	ble t1, zero, PULA_COLISAO_CIMA # if t1 < zerot1 then target
+	ble t1, t4, PULA_COLISAO_CIMA # if t1 < zerot1 then target
 	sh t1,2(t0)		    		# salva y
 PULA_COLISAO_CIMA:	
 	ret
 	
 					
 CHAR_BAIXO:
+	# bottom colision = current map data + 8
+
+	#  CHECA SE y >= colisao do mapa atual de baixo
+	addi sp, sp, -4
+	sw ra, 0(sp)
+	call GET_DATA_FROM_MAP
+	lw ra, 0(sp)
+	addi sp, sp, 4
+	# a0 = adress of map
+	addi a0, a0, 8
+	lh t4, 0(a0)
 
 	la t0,CHAR_POS
 	lh t1, 0(t0)    			# carrega x atual
@@ -137,9 +184,10 @@ CHAR_BAIXO:
 
 
 	lh t1, 2(t0)				# carrega y
-	addi t1,t1,32				# incrementa 16 pixeis
+	addi t1,t1,16				# incrementa 16 pixeis
 
-	li t4, 240
+
+	# li t4, 240
 	bge t1, t4, PULA_COLISAO_BAIXO # if t1 < zerot1 then target
 	sh t1,2(t0)			  		# salva y
 PULA_COLISAO_BAIXO:	
@@ -153,7 +201,7 @@ PULA_COLISAO_BAIXO:
 RESET_FRAME:
 	li  t5, 1
 	mv t4, t5
-	J PULA_SOMA_FRAME
+	j PULA_SOMA_FRAME
 
 							
 

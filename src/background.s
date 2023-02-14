@@ -1,6 +1,6 @@
 .data
 
-CURRENT_MAP: .byte 0
+CURRENT_MAP: .byte 1
 
 .text
 
@@ -18,7 +18,7 @@ GET_DATA_FROM_MAP:
 
 
 DATA_MAP_0:
-    la a0, h1fdata
+    la a0, citydata
     ret
 
 DATA_MAP_1:
@@ -38,40 +38,55 @@ GET_MAP_ADRESS:
 
 
 MAP_0:
-    la a0, home_1f
+    la a0, city
     ret
 MAP_1:
     la a0, lab
     ret
 
 CHECK_TELEPORT:
-# check if the character is in tp range
-    #a0 adress of map data:
+    # check if the character is in tp range
     mv t0, a0
+    #a0 adress of map data:
     la t1, CHAR_POS
     lh t2, 0(t1) # x position
     lh t3, 2(t1) # y position
 
-    # the tp 1 positions are in adresses a0[1] and a0[2]:
-    lh t4,  2(a0) #x tp
-    lh t5, 4(a0)  # y tp
+# change this loop
+    #  in position a0 + 12 we have the amount of tps in current map, this will limit  our counter
+    addi a0, a0, 12
+    lh t1, 0(a0) # t1 = amount of tps in current map
+    li t6, 0 # counter
+    addi a0, a0, 2 # a0=[0] = first tp
 
+CTP0:
+    beq t1, t6, NCTPOUTLOOP
+    # the tp 1 positions are in adresses a0[0] and a0[2]:
+    lh t4,  0(a0) #x tp
+    lh t5, 2(a0)  # y tp
 
-
-
-    # check if positions are close:
-    # return 1 if teleport occurred and 0 if not
-    li a0,0
-    bne t2, t4, PULA_TELEPORT
-    bne t3, t5, PULA_TELEPORT
-    # IF EQUAL DO STUFF HERE
-    # new current map will be a0[3]
-    la t1, CURRENT_MAP
-    lh t2, 6(t0)
-    sb t2, 0(t1)  
-    # store ra and print new background
+    #  check if t2 == t4 and  t3 == t5
+    bne t2, t4, NCTP0 # if diff jump to next loop
+    bne t3, t5, NCTP0  # if diff jump to next loop
+    # x and y equals:
+    # store new current map and return true
+    # new current map == a0 + 4
+    la t0, CURRENT_MAP
+    lb t1, 4(a0)
+    sb t1, 0(t0)
+    #  return true
     li a0, 1
-PULA_TELEPORT:
+    j END_TELEPORT
+NCTP0:
+    addi a0, a0, 6 # jump to next tp adress
+    addi t6, t6, 1 # increase counter
+    j CTP0
+
+NCTPOUTLOOP:
+    # none positions are equal -> return false
+    li a0, 0
+
+END_TELEPORT:
 ret
 
 
@@ -121,6 +136,8 @@ CLS:
 .data
 
 
+.include "../sprites/backgrounds/city.s"
+.include "../sprites/backgrounds/citydata.s"
 
 .include "../sprites/backgrounds/h1f.s"
 # .include "animation.s"

@@ -120,65 +120,65 @@ PRINTSWITCHNAMES:
     mv a0, s2
     li a4, 1
     ecall
-#  print next pokemon name
-    la t0, heropokemons
-    # pokemon index 0 == 2(t0)
-    lh t1, 8(t0)
-    # mv s2, t1
-    mv a0, t1 # a0 == idnex of pokemon on position 0 in menu
+# #  print next pokemon name
+#     la t0, heropokemons
+#     # pokemon index 0 == 2(t0)
+#     lh t1, 8(t0)
+#     # mv s2, t1
+#     mv a0, t1 # a0 == idnex of pokemon on position 0 in menu
 
-    call GET_POKEMON_STRING
-    # a0 = string to be printed
-    mv s2, a0
-    li a1, 32
-    li a2, 92
-    li a3, 0xc700
-    li a4, 0
-    li a7, 104
-    ecall
-    mv a0, s2
-    li a4, 1
-    ecall
+#     call GET_POKEMON_STRING
+#     # a0 = string to be printed
+#     mv s2, a0
+#     li a1, 32
+#     li a2, 92
+#     li a3, 0xc700
+#     li a4, 0
+#     li a7, 104
+#     ecall
+#     mv a0, s2
+#     li a4, 1
+#     ecall
 
-#  print next pokemon name
-    la t0, heropokemons
-    # pokemon index 0 == 2(t0)
-    lh t1, 10(t0)
-    # mv s2, t1
-    mv a0, t1 # a0 == idnex of pokemon on position 0 in menu
+# #  print next pokemon name
+#     la t0, heropokemons
+#     # pokemon index 0 == 2(t0)
+#     lh t1, 10(t0)
+#     # mv s2, t1
+#     mv a0, t1 # a0 == idnex of pokemon on position 0 in menu
 
-    call GET_POKEMON_STRING
-    # a0 = string to be printed
-    mv s2, a0
-    li a1, 32
-    li a2, 112
-    li a3, 0xc700
-    li a4, 0
-    li a7, 104
-    ecall
-    mv a0, s2
-    li a4, 1
-    ecall
+#     call GET_POKEMON_STRING
+#     # a0 = string to be printed
+#     mv s2, a0
+#     li a1, 32
+#     li a2, 112
+#     li a3, 0xc700
+#     li a4, 0
+#     li a7, 104
+#     ecall
+#     mv a0, s2
+#     li a4, 1
+#     ecall
 
-#  print next pokemon name
-    la t0, heropokemons
-    # pokemon index 0 == 2(t0)
-    lh t1, 12(t0)
-    # mv s2, t1
-    mv a0, t1 # a0 == idnex of pokemon on position 0 in menu
+# #  print next pokemon name
+#     la t0, heropokemons
+#     # pokemon index 0 == 2(t0)
+#     lh t1, 12(t0)
+#     # mv s2, t1
+#     mv a0, t1 # a0 == idnex of pokemon on position 0 in menu
 
-    call GET_POKEMON_STRING
-    # a0 = string to be printed
-    mv s2, a0
-    li a1, 32
-    li a2, 132
-    li a3, 0xc700
-    li a4, 0
-    li a7, 104
-    ecall
-    mv a0, s2
-    li a4, 1
-    ecall
+#     call GET_POKEMON_STRING
+#     # a0 = string to be printed
+#     mv s2, a0
+#     li a1, 32
+#     li a2, 132
+#     li a3, 0xc700
+#     li a4, 0
+#     li a7, 104
+#     ecall
+#     mv a0, s2
+#     li a4, 1
+#     ecall
     lw ra, 0(sp)
     addi sp, sp, 4
     ret
