@@ -467,7 +467,7 @@ ret
 HEAL_POKEMONS:
     addi sp, sp, -4
     sw ra, 0(sp)
-
+    call PLAY_HEAL
     # get current pokemons and set each current hp to total hp
     la s3, heropokemons 
     lh s4, 0(s3) # s4 = total pokemons
