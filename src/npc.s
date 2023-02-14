@@ -1,6 +1,8 @@
 .data
 .include "../sprites/characters/gym1npc.s"s
 .include "../sprites/characters/gym2npc.s"s
+.include "../sprites/characters/gym3npc.s"s
+
 
 current_npc: .half 0
 checkpoint: .half 0
@@ -36,8 +38,13 @@ GNPIA0:
     bne t0, a0, GNPIA1
     la a0, gym2npc
     ret
-
 GNPIA1:
+    addi t0, t0, 1
+    bne t0, a0, GNPIA2
+    la a0, gym3npc
+    ret
+
+GNPIA2:
     la a0, gym1npc
     ret
 

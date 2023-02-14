@@ -19,6 +19,8 @@ GET_DATA_FROM_MAP:
     beq t1, t2, DATA_MAP_2
     addi t2, t2, 1
     beq t1, t2, DATA_MAP_3
+    addi t2, t2, 1
+    beq t1, t2, DATA_MAP_4
 
 DATA_MAP_0:
     la a0, citydata
@@ -32,6 +34,9 @@ DATA_MAP_2:
     ret
 DATA_MAP_3:
     la a0, gym2data
+    ret
+DATA_MAP_4:
+    la a0, gym3data
     ret
 
 
@@ -49,6 +54,8 @@ GET_MAP_ADRESS:
     beq t1, t2, MAP_2
     addi t2, t2, 1
     beq t1, t2, MAP_3
+    addi t2, t2, 1
+    beq t1, t2, MAP_4
 
 MAP_0:
     la a0, city
@@ -62,6 +69,9 @@ MAP_2:
     ret
 MAP_3:
     la a0, gym2
+    ret
+MAP_4:
+    la a0, gym3
     ret
 
 CHECK_TELEPORT:
@@ -209,6 +219,19 @@ PCMNGYM1:
     j PCMEND
 PCMNGYM2:
 
+
+    call IS_GYM_THREE
+    beq a0, zero, PCMNGYM3
+        # current npc == gym 3 npc
+        la t0, current_npc
+        li t1, 2 # index of gym 3 npc
+        sh t1, 0(t0) # save
+        # print npc
+        li a7,1
+        mv a0, t1
+        ecall
+        call PRINT_NPC
+PCMNGYM3:
 PCMEND:
     lw ra, 0(sp)
     addi sp, sp, 4
@@ -263,6 +286,20 @@ IGYM2F:
     li a0, 0
     ret
 
+IS_GYM_THREE:
+    la t0, CURRENT_MAP
+    lb t1, 0(t0) 
+    ## if t1 == 4 -> true: else: false
+    li t2, 4
+    bne t1, t2, IGYM3F
+    # true:
+    li a0, 1
+    ret
+IGYM3F:
+    #GYM 1  false case
+    li a0, 0
+    ret
+
 
 
 PRINT_POKEBALLS:
@@ -300,6 +337,8 @@ CLS:
 
 
 .data
+.include "../sprites/backgrounds/gym3.s"
+.include "../sprites/backgrounds/gym3data.s"
 .include "../sprites/backgrounds/gym2.s"
 .include "../sprites/backgrounds/gym2data.s"
 .include "../sprites/backgrounds/gym1.s"
