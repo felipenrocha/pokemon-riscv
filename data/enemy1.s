@@ -1,1 +1,1 @@
-enemy1: .half 2, 1, 9
+enemy1: .half 2, 9,1

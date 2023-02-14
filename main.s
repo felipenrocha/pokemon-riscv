@@ -31,6 +31,7 @@ ecall
 .include "src/game_loop.s"
 .include "src/npc.s"
 .include "src/gym2.s"
+.include "src/gym3.s"
 
 .include "src/textbox.s"
 .include "src/animation.s"
