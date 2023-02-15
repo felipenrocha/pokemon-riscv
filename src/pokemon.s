@@ -470,7 +470,8 @@ HEAL_POKEMONS:
     call PLAY_HEAL
     # get current pokemons and set each current hp to total hp
     la s3, heropokemons 
-    lh s4, 0(s3) # s4 = total pokemons
+    li s4, 3 # s4 = 3
+    sh s4, 0(s3)
     li s5, 0  #s5 = counter
     addi s3, s3, 2 # s3= adress of index of first pokemon
     HPLOOP:
