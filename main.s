@@ -4,7 +4,7 @@
 .text
 
 
-# call  MENU
+call  MENU
 
 
 #  inicio do jogo
