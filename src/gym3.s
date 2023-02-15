@@ -101,6 +101,7 @@ sw ra, 0(sp)
     li t1, 2
     sh t1, 0(t0) # CURRENT ENEMY = 2
 
+    call PLAY_SELECT
 
     # HEAL venusaur and snorlax (todo: fix this lol)
     li a0, 1 #venusaur id

@@ -4,13 +4,14 @@
 .text
 
 
-call  MENU
+# call  MENU
 
 
 #  inicio do jogo
 call INICIO_JOGO	
 
-
+call PLAY_HEAL
+call CLS
 li a0, 1000
 call SLEEP 
 
@@ -31,7 +32,6 @@ ecall
 .include "src/npc.s"
 .include "src/gym2.s"
 .include "src/gym3.s"
-
 .include "src/textbox.s"
 .include "src/animation.s"
 .include "src/inicio.s"
@@ -43,7 +43,6 @@ ecall
 .include "src/battle.s"
 .include "src/hpbar.s"
 .include "src/midi.s"
-
 .include "src/pokemon.s"
 .include "src/attack.s"
 .include "src/move.s"

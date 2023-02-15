@@ -261,8 +261,6 @@ PULA_MSG_15:
 
 END_GAME: 
 # game beaten
-
-
     # print bg
     la a0, oakbg
 	li a1, 0
@@ -301,14 +299,6 @@ END_GAME:
     call SLEEP
     call PLAY_SELECT
     la a0, msg17
-    call PRINTBOX
-    li a0, 1000
-    call SLEEP
-    li a0, 1000
-    call SLEEP
-    call PLAY_SELECT
-
-    la a0, msg18
     call PRINTBOX
     li a0, 1000
     call SLEEP

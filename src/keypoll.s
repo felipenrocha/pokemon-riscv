@@ -43,11 +43,7 @@ KEY2:
 		li t0,'z'
 		beq t2,t0,SELECT_ACTION
 				
-		li t0,'x'
-		beq t2,t0,JUMP_START_BATTLE
-
-
-
+	
 		li t0,'a'
 		# store direction
 		la t3, CURR_DIRECTION

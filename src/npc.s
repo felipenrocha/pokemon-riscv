@@ -205,6 +205,7 @@ SELECT_KEY_NPC_MENU:
 addi sp, sp, -4
 sw ra, 0(sp)
 
+    call PLAY_SELECT
 
     la t0, NPC0CURRENTSTR
     lh t1, 0(t0)

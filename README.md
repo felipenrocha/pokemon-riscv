@@ -66,4 +66,4 @@ para luta, luta para psíquico, etc.);
 - [x]   (0,5) menu de ações do jogador;
 - [x]   (0,5) movimentação dos personagens
 - [ ]   (0,5) três tipos de terrenos especiais (NOPE);
-- [ ]   (2.0) documentação: descreva seu projeto no formato de um Artigo Científico IEEE para o SBGames.
+- [x]   (2.0) documentação: descreva seu projeto no formato de um Artigo Científico IEEE para o SBGames.
